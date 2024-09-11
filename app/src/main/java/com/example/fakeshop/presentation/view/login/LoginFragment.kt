@@ -14,7 +14,6 @@ import com.example.fakeshop.appComponent
 import com.example.fakeshop.presentation.viewModel.LoginViewModel
 import com.example.fakeshop.presentation.viewModel.ViewModelFactory
 import com.example.fakeshop.presentation.viewModel.action.LoginOneTimeEvent
-import com.example.fakeshop.presentation.viewModel.action.RegistrationOneTimeEvent
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
