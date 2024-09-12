@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.shopapp"
+    namespace = "com.example.fakeshop"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.shopapp"
+        applicationId = "com.example.fakeshop"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -56,8 +56,8 @@ dependencies {
 
     //network
     implementation(libs.retrofit)
-    implementation (libs.converter.gson)
-    implementation (libs.okhttp)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp)
 
     //dagger
     implementation(libs.dagger)
