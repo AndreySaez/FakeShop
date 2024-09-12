@@ -7,7 +7,7 @@ class RegisterUseCase @Inject constructor(
 ) {
     suspend fun register(registerForm: RegisterForm): RegisterResult {
         val registerRequest = regRepository.registration(registerForm)
-        return RegisterResult(registerRequest.status == "success")
+        return RegisterResult(registerRequest)
     }
 }
 
