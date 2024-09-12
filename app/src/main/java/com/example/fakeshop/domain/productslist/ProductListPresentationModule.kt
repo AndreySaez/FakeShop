@@ -1,8 +1,7 @@
-package com.example.fakeshop.domain.login
+package com.example.fakeshop.domain.productslist
 
 import androidx.lifecycle.ViewModel
 import com.example.fakeshop.di.ViewModelKey
-import com.example.fakeshop.presentation.viewModel.LoginViewModel
 import com.example.fakeshop.presentation.viewModel.ProductListViewModel
 import dagger.Binds
 import dagger.Module
@@ -10,9 +9,9 @@ import dagger.multibindings.IntoMap
 import dagger.multibindings.IntoSet
 
 @Module
-interface LoginPresentationModule {
+interface ProductListPresentationModule {
     @Binds
     @IntoMap
-    @ViewModelKey(LoginViewModel::class)
-    fun bindLoginViewModel(loginViewModel: LoginViewModel): ViewModel
+    @ViewModelKey(ProductListViewModel::class)
+    fun bindProductListViewModel(productListViewModel: ProductListViewModel): ViewModel
 }

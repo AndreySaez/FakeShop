@@ -6,11 +6,7 @@ class LoginUseCase @Inject constructor(
     private val loginRepository: LoginRepository
 ) {
     suspend fun login(loginForm: LoginForm): LoginResult {
-        val loginReguest = loginRepository.login(loginForm)
-        return (LoginResult(
-            isLoginSuccess = loginReguest.status == "success",
-            token = loginReguest.token
-        ))
+        return loginRepository.login(loginForm)
     }
 }
 
