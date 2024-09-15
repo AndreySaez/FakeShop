@@ -1,7 +1,7 @@
 package com.example.fakeshop.productlist.data.category
 
 import com.example.fakeshop.productlist.domain.category.CategoryRepository
-import com.example.fakeshop.productlist.domain.productslist.Category
+import com.example.fakeshop.productlist.domain.list.Category
 import javax.inject.Inject
 
 class CategoryRepositoryImpl @Inject constructor() : CategoryRepository {

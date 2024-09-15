@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.fakeshop.R
-import com.example.fakeshop.productlist.domain.productslist.Product
+import com.example.fakeshop.productlist.domain.list.Product
 
-class ProductsListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ProductsListAdapter(
+    private val clickListener: (Product) -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var productsList = listOf<Product>()
     private var showLoading: Boolean = false
     override fun getItemViewType(position: Int): Int {
@@ -48,6 +50,9 @@ class ProductsListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position == productsList.size || holder !is ProductsListViewHolder) return
         holder.bindData(productsList[position])
+        holder.itemView.setOnClickListener {
+            clickListener(productsList[position])
+        }
     }
 
     fun bindProductList(newList: List<Product>, showLoading: Boolean = false) {
@@ -75,7 +80,7 @@ class ProductsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     private val oldPrice = itemView.findViewById<TextView>(R.id.price)
     private val totalPrice = itemView.findViewById<TextView>(R.id.discounted_price)
     fun bindData(product: Product) {
-        val imageData = if (product.images.isNotEmpty()){
+        val imageData = if (product.images.isNotEmpty()) {
             product.images[0]
         } else {
             R.drawable.error_image_placeholder

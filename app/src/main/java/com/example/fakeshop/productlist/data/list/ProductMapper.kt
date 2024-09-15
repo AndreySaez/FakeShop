@@ -1,6 +1,6 @@
 package com.example.fakeshop.productlist.data.list
 
-import com.example.fakeshop.productlist.domain.productslist.Product
+import com.example.fakeshop.productlist.domain.list.Product
 import javax.inject.Inject
 
 class ProductMapper @Inject constructor() {
@@ -10,7 +10,7 @@ class ProductMapper @Inject constructor() {
         category = productDTO.category ?: emptyList(),
         price = productDTO.price,
         discountPrice = productDTO.discountPrice ?: productDTO.price,
-        images = productDTO.images ?: emptyList(),
+        images = productDTO.images?: emptyList(),
         description = productDTO.description ?: ""
     )
 }

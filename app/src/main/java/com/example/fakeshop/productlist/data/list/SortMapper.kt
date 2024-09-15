@@ -1,6 +1,6 @@
 package com.example.fakeshop.productlist.data.list
 
-import com.example.fakeshop.productlist.domain.productslist.PriceSort
+import com.example.fakeshop.productlist.domain.list.PriceSort
 import javax.inject.Inject
 
 class SortMapper @Inject constructor() {

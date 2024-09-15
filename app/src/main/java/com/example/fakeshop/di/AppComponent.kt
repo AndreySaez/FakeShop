@@ -7,7 +7,7 @@ import com.example.fakeshop.login.data.LoginDataModule
 import com.example.fakeshop.productlist.data.list.ProductListDataModule
 import com.example.fakeshop.registration.data.RegistrationDataModule
 import com.example.fakeshop.login.presentation.LoginPresentationModule
-import com.example.fakeshop.productlist.domain.productslist.ProductListPresentationModule
+import com.example.fakeshop.productlist.domain.list.ProductListPresentationModule
 import com.example.fakeshop.registration.presentation.RegistrationPresentationModule
 import com.example.fakeshop.productlist.presentation.view.filters.FiltersFragment
 import com.example.fakeshop.login.presentation.view.LoginFragment

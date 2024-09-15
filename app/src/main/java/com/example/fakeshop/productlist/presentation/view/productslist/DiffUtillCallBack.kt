@@ -1,7 +1,7 @@
 package com.example.fakeshop.productlist.presentation.view.productslist
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.fakeshop.productlist.domain.productslist.Product
+import com.example.fakeshop.productlist.domain.list.Product
 
 class DiffUtilCallback(
     private val oldList: List<Product>,

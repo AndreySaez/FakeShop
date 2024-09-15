@@ -1,4 +1,4 @@
-package com.example.fakeshop.productlist.domain.productslist
+package com.example.fakeshop.productlist.domain.list
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

@@ -1,7 +1,7 @@
 package com.example.fakeshop.productlist.presentation.viewModel
 
-import com.example.fakeshop.productlist.domain.productslist.Category
-import com.example.fakeshop.productlist.domain.productslist.PriceSort
+import com.example.fakeshop.productlist.domain.list.Category
+import com.example.fakeshop.productlist.domain.list.PriceSort
 
 sealed interface FiltersAction {
     data object SubmitFilters : FiltersAction
