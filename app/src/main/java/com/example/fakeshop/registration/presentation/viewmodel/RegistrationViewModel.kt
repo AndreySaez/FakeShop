@@ -29,6 +29,13 @@ class RegistrationViewModel @Inject constructor(
             is RegistrationAction.OnEmailChanged -> changeEmail(action.emailValue)
             is RegistrationAction.OnPasswordChanged -> changePassword(action.passwordValue)
             is RegistrationAction.OnCpasswordChanged -> changeCpassword(action.cpasswordValue)
+            is RegistrationAction.haveAccountClicked -> alreadyHaveAccount()
+        }
+    }
+
+    private fun alreadyHaveAccount() {
+        viewModelScope.launch {
+            _eventFlow.emit(RegistrationOneTimeEvent.NavigateToLogin)
         }
     }
 

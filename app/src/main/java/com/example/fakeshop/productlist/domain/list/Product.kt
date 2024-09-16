@@ -1,5 +1,9 @@
-package com.example.fakeshop.productlist.domain.productslist
+package com.example.fakeshop.productlist.domain.list
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Product(
     val id: String,
     val name: String,
@@ -8,4 +12,4 @@ data class Product(
     val discountPrice: Int,
     val images: List<String>,
     val description: String
-)
+) : Parcelable

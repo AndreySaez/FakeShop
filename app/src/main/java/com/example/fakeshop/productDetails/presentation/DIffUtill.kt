@@ -1,11 +1,11 @@
-package com.example.fakeshop.productlist.presentation.view.productslist
+package com.example.fakeshop.productDetails.presentation
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.fakeshop.productlist.domain.list.Product
+import com.example.fakeshop.productDetails.domain.ProductImage
 
-class DiffUtilCallback(
-    private val oldList: List<Product>,
-    private val newList: List<Product>
+class DiffUtil(
+    private val oldList: List<ProductImage>,
+    private val newList: List<ProductImage>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size
@@ -16,12 +16,12 @@ class DiffUtilCallback(
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].id == newList[newItemPosition].id
+        return oldList[oldItemPosition].image == newList[newItemPosition].image
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return when {
-            oldList[oldItemPosition].id == newList[newItemPosition].id -> false
+            oldList[oldItemPosition].image == newList[newItemPosition].image -> false
             else -> true
         }
     }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -23,10 +24,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -120,9 +124,24 @@ private fun RegistrationColumn(
             },
             isError = registerState.isCpasswordWrong
         )
-        Spacer(modifier = Modifier.padding(90.dp))
+        Spacer(modifier = Modifier.padding(60.dp))
 
         EnterButton(registerState.isLoading, onAction)
+        Spacer(modifier = Modifier.padding(20.dp))
+        ClickableText(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            style = TextStyle(
+                color = Color.White,
+                fontSize = 14.sp
+            ),
+            text = AnnotatedString(
+                stringResource(id = R.string.already_have_account)
+            ),
+            onClick = {
+                onAction(RegistrationAction.haveAccountClicked)
+            }
+        )
+
     }
 }
 
@@ -176,7 +195,10 @@ private fun EnterButton(
             if (isLoading) {
                 CircularProgressIndicator()
             } else
-                Text(text = stringResource(R.string.enter))
+                Text(
+                    fontSize = 17.sp,
+                    text = stringResource(R.string.enter)
+                )
 
         },
         onClick = { onClick(RegistrationAction.EnterClick) },

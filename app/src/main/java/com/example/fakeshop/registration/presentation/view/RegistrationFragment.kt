@@ -62,6 +62,5 @@ class RegistrationFragment : Fragment() {
                     .commit()
             }
         }.launchIn(lifecycleScope)
-
     }
 }

@@ -1,6 +1,7 @@
 package com.example.fakeshop.registration.presentation.viewmodel
 
 sealed interface RegistrationAction {
+    data object haveAccountClicked : RegistrationAction
     data object EnterClick : RegistrationAction
     data class OnNameChanged(val nameValue: String) : RegistrationAction
     data class OnEmailChanged(val emailValue: String) : RegistrationAction

@@ -11,8 +11,8 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.fakeshop.appComponent
-import com.example.fakeshop.productlist.domain.productslist.Category
-import com.example.fakeshop.productlist.domain.productslist.PriceSort
+import com.example.fakeshop.productlist.domain.list.Category
+import com.example.fakeshop.productlist.domain.list.PriceSort
 import com.example.fakeshop.productlist.presentation.viewModel.FiltersAction
 import com.example.fakeshop.productlist.presentation.viewModel.FiltersOneTimeEvent
 import com.example.fakeshop.productlist.presentation.viewModel.FiltersViewModel

@@ -1,6 +1,6 @@
 package com.example.fakeshop.productlist.data.list
 
-import com.example.fakeshop.productlist.domain.productslist.ProductListRepository
+import com.example.fakeshop.productlist.domain.list.ProductListRepository
 import dagger.Binds
 import dagger.Module
 

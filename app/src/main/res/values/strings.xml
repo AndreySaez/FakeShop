@@ -22,4 +22,5 @@
     <string name="sorting_price_descending">Дороже</string>
     <string name="submit_filters">Применить</string>
     <string name="filters">Фильтры</string>
+    <string name="already_have_account">Уже зарегистрирован</string>
 </resources>

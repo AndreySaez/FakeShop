@@ -3,8 +3,8 @@ package com.example.fakeshop.productlist.presentation.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fakeshop.productlist.domain.category.CategoryRepository
-import com.example.fakeshop.productlist.domain.productslist.Category
-import com.example.fakeshop.productlist.domain.productslist.PriceSort
+import com.example.fakeshop.productlist.domain.list.Category
+import com.example.fakeshop.productlist.domain.list.PriceSort
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

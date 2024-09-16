@@ -2,10 +2,10 @@ package com.example.fakeshop.productlist.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fakeshop.productlist.domain.productslist.Category
-import com.example.fakeshop.productlist.domain.productslist.PriceSort
-import com.example.fakeshop.productlist.domain.productslist.Product
-import com.example.fakeshop.productlist.domain.productslist.ProductListUseCase
+import com.example.fakeshop.productlist.domain.list.Category
+import com.example.fakeshop.productlist.domain.list.PriceSort
+import com.example.fakeshop.productlist.domain.list.Product
+import com.example.fakeshop.productlist.domain.list.ProductListUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

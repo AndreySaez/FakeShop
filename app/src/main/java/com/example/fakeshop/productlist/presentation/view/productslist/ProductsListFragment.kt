@@ -17,8 +17,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fakeshop.R
 import com.example.fakeshop.appComponent
-import com.example.fakeshop.productlist.domain.productslist.Category
-import com.example.fakeshop.productlist.domain.productslist.PriceSort
+import com.example.fakeshop.productDetails.presentation.Navigator
+import com.example.fakeshop.productDetails.presentation.ProductDetailsFragment
+import com.example.fakeshop.productlist.domain.list.Category
+import com.example.fakeshop.productlist.domain.list.PriceSort
+import com.example.fakeshop.productlist.domain.list.Product
 import com.example.fakeshop.productlist.presentation.view.filters.FiltersFragment
 import com.example.fakeshop.productlist.presentation.viewModel.ProductAction
 import com.example.fakeshop.productlist.presentation.viewModel.ProductListViewModel
@@ -72,7 +75,9 @@ class ProductsListFragment : Fragment() {
             productListViewModel.onAction(ProductAction.OnFiltersClick)
         }
 
-        val productsAdapter = ProductsListAdapter()
+        val productsAdapter = ProductsListAdapter {
+            Navigator.openProduct(it)
+        }
         val gridLayoutManager = GridLayoutManager(context, 2).apply {
             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
@@ -145,6 +150,21 @@ class ProductsListFragment : Fragment() {
                     is ProductsListEvents.OpenFilters -> openFilters(it.category, it.sort)
                 }
             }.launchIn(lifecycleScope)
+
+        Navigator.state
+            .onEach {
+                if (it.product != null) {
+                    navigationOnProduct(it.product)
+                }
+            }
+            .launchIn(lifecycleScope)
+    }
+
+    private fun navigationOnProduct(product: Product) {
+        val productDetails = ProductDetailsFragment.newInstance(product)
+        parentFragmentManager.beginTransaction().addToBackStack(null)
+            .add(R.id.main, productDetails)
+            .commit()
     }
 
     private fun openFilters(category: Category?, sort: PriceSort) {
@@ -155,7 +175,7 @@ class ProductsListFragment : Fragment() {
         val emptyListText: TextView = view.findViewById(R.id.empty_list_text)
         val errorGroup: View = view.findViewById(R.id.error_group)
         val errorButton: Button = view.findViewById(R.id.error_button)
-        val recycler: RecyclerView = view.findViewById(R.id.recycler_view)
+        val recycler: RecyclerView = view.findViewById(R.id.details_recycler_view)
         val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
         val filtersButton: View = view.findViewById(R.id.filters_title)
     }

@@ -1,4 +1,4 @@
-package com.example.fakeshop.productlist.domain.productslist
+package com.example.fakeshop.productlist.domain.list
 
 import javax.inject.Inject
 

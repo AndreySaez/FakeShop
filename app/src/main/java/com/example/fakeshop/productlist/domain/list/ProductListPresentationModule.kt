@@ -1,4 +1,4 @@
-package com.example.fakeshop.productlist.domain.productslist
+package com.example.fakeshop.productlist.domain.list
 
 import androidx.lifecycle.ViewModel
 import com.example.fakeshop.di.ViewModelKey
@@ -6,7 +6,6 @@ import com.example.fakeshop.productlist.presentation.viewModel.ProductListViewMo
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import dagger.multibindings.IntoSet
 
 @Module
 interface ProductListPresentationModule {

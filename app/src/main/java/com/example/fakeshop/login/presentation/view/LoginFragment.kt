@@ -12,10 +12,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.fakeshop.R
 import com.example.fakeshop.appComponent
-import com.example.fakeshop.productlist.presentation.view.productslist.ProductsListFragment
-import com.example.fakeshop.login.presentation.viewmodel.LoginViewModel
-import com.example.fakeshop.productlist.presentation.viewModel.ViewModelFactory
 import com.example.fakeshop.login.presentation.viewmodel.LoginOneTimeEvent
+import com.example.fakeshop.login.presentation.viewmodel.LoginViewModel
+import com.example.fakeshop.productlist.presentation.view.productslist.ProductsListFragment
+import com.example.fakeshop.productlist.presentation.viewModel.ViewModelFactory
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
