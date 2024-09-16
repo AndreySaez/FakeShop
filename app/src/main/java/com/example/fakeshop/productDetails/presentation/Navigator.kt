@@ -1,4 +1,4 @@
-package com.example.fakeshop.productDetails
+package com.example.fakeshop.productDetails.presentation
 
 import com.example.fakeshop.productlist.domain.list.Product
 import kotlinx.coroutines.flow.MutableStateFlow

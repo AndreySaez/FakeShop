@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fakeshop.R
 import com.example.fakeshop.appComponent
-import com.example.fakeshop.productDetails.Navigator
-import com.example.fakeshop.productDetails.ProductDetailsFragment
+import com.example.fakeshop.productDetails.presentation.Navigator
+import com.example.fakeshop.productDetails.presentation.ProductDetailsFragment
 import com.example.fakeshop.productlist.domain.list.Category
 import com.example.fakeshop.productlist.domain.list.PriceSort
 import com.example.fakeshop.productlist.domain.list.Product
@@ -175,7 +175,7 @@ class ProductsListFragment : Fragment() {
         val emptyListText: TextView = view.findViewById(R.id.empty_list_text)
         val errorGroup: View = view.findViewById(R.id.error_group)
         val errorButton: Button = view.findViewById(R.id.error_button)
-        val recycler: RecyclerView = view.findViewById(R.id.recycler_view)
+        val recycler: RecyclerView = view.findViewById(R.id.details_recycler_view)
         val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
         val filtersButton: View = view.findViewById(R.id.filters_title)
     }
