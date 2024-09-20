@@ -127,7 +127,7 @@ private fun RegistrationColumn(
         Spacer(modifier = Modifier.padding(60.dp))
 
         EnterButton(registerState.isLoading, onAction)
-        Spacer(modifier = Modifier.padding(20.dp))
+        Spacer(modifier = Modifier.padding(25.dp))
         ClickableText(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             style = TextStyle(
@@ -197,7 +197,7 @@ private fun EnterButton(
             } else
                 Text(
                     fontSize = 17.sp,
-                    text = stringResource(R.string.enter)
+                    text = stringResource(R.string.registrate)
                 )
 
         },

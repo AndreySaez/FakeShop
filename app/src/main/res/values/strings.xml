@@ -23,4 +23,6 @@
     <string name="submit_filters">Применить</string>
     <string name="filters">Фильтры</string>
     <string name="already_have_account">Уже зарегистрирован</string>
+    <string name="registrate">Зарегистрироваться</string>
+    <string name="have_no_account">У меня нет аккаунта</string>
 </resources>

@@ -43,9 +43,7 @@ class ImageHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bindPersonData(image: ProductImage) {
         actorImage?.apply {
             load(image.image)
-            RoundedCornersTransformation(
-                25f
-            )
+            RoundedCornersTransformation(25f)
         }
     }
 }

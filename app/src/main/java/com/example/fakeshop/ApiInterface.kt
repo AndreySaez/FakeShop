@@ -2,6 +2,7 @@ package com.example.fakeshop
 
 import com.example.fakeshop.login.data.LoginRequest
 import com.example.fakeshop.login.data.LoginState
+import com.example.fakeshop.login.data.ProfileState
 import com.example.fakeshop.productlist.data.list.ProductList
 import com.example.fakeshop.registration.data.RegistrationRequest
 import com.example.fakeshop.registration.data.RegistrationState
@@ -10,6 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -24,6 +26,9 @@ interface ApiInterface {
 
     @POST("users/auth/login")
     suspend fun logIn(@Body logInRequest: LoginRequest): LoginState
+
+    @GET("users/auth/login/profile")
+    suspend fun getProfile(@Header("Authorization") token: String): ProfileState
 
     @POST("users")
     suspend fun registration(@Body createAccountRequest: RegistrationRequest): RegistrationState
