@@ -5,6 +5,7 @@ import javax.inject.Inject
 class LoginUseCase @Inject constructor(
     private val loginRepository: LoginRepository
 ) {
+
     suspend fun login(loginForm: LoginForm): LoginResult {
         return loginRepository.login(loginForm)
     }

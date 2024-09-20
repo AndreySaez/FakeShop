@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -26,10 +27,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -108,6 +112,20 @@ private fun LoginColumn(
             EnterButton(
                 isLoading = loginState.isLoading,
                 onClick = onAction
+            )
+            Spacer(modifier = Modifier.padding(25.dp))
+            ClickableText(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                style = TextStyle(
+                    color = Color.White,
+                    fontSize = 14.sp
+                ),
+                text = AnnotatedString(
+                    stringResource(id = R.string.have_no_account)
+                ),
+                onClick = {
+                    onAction(LoginAction.DontHaveAccount)
+                }
             )
         }
     }

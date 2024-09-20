@@ -16,6 +16,7 @@ import com.example.fakeshop.login.presentation.viewmodel.LoginOneTimeEvent
 import com.example.fakeshop.login.presentation.viewmodel.LoginViewModel
 import com.example.fakeshop.productlist.presentation.view.productslist.ProductsListFragment
 import com.example.fakeshop.productlist.presentation.viewModel.ViewModelFactory
+import com.example.fakeshop.registration.presentation.view.RegistrationFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -58,6 +59,11 @@ class LoginFragment : Fragment() {
                 LoginOneTimeEvent.NavigateToProductList -> {
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.main, ProductsListFragment()).commit()
+                }
+
+                LoginOneTimeEvent.GoToRegistration -> {
+                    parentFragmentManager.beginTransaction().addToBackStack(null)
+                        .add(R.id.main, RegistrationFragment()).commit()
                 }
             }
         }.launchIn(lifecycleScope)
