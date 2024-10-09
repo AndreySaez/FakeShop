@@ -11,11 +11,12 @@ import javax.inject.Inject
 class LoginRepositoryImpl @Inject constructor(
     private val apiInterface: ApiInterface
 ) : LoginRepository {
+
     override suspend fun login(loginForm: LoginForm) = withContext(Dispatchers.IO) {
         apiInterface.logIn(LoginRequest(loginForm.email, loginForm.password)).let {
             LoginResult(
-                it.status == "success",
-                it.token,
+                it.accessToken,
+                it.refreshToken
             )
         }
     }

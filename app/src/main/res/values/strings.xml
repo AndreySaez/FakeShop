@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FakeShop</string>
     <string name="registration">Регистрация</string>
-    <string name="name">Имя</string>
+    <string name="name">Имя пользователя</string>
     <string name="email">Электронная почта</string>
     <string name="password">Пароль</string>
     <string name="cpassword">Подтвердите пароль</string>

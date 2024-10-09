@@ -3,20 +3,16 @@ package com.example.fakeshop.login.domain
 import javax.inject.Inject
 
 class ProfileUseCase @Inject constructor(
-    private val profileRepository: ProfileRepository
+    private val profileRepository: ProfileRepository,
+    private val sessionStorage: SessionStorage
 ) {
-    suspend fun getProfile(token: String): ProfileResult {
-        return profileRepository.getProfile(token)
+    suspend fun getProfile(): ProfileResult {
+        val session = sessionStorage.getSession() as? Session.Authorized
+            ?: throw IllegalStateException("No token")
+        return profileRepository.getProfile(session.accessToken)
     }
-
-    suspend fun setToken(token: String) {
-        profileRepository.setToken(token)
-    }
-
-    suspend fun getToken(): String? = profileRepository.getToken()
-
 }
 
 data class ProfileResult(
-    val getProfileSuccess: Boolean
+    val profileId: Int
 )

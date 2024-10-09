@@ -12,5 +12,5 @@ class RegisterUseCase @Inject constructor(
 }
 
 data class RegisterResult(
-    val isRegisterSuccess: Boolean,
+    val newUserId: Int,
 )

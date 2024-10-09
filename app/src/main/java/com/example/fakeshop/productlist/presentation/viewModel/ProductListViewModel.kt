@@ -9,6 +9,7 @@ import com.example.fakeshop.productlist.domain.list.ProductListUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -16,10 +17,7 @@ import javax.inject.Inject
 
 class ProductListViewModel @Inject constructor(
     private val getProductsUseCase: ProductListUseCase
-) : ViewModel() {
-    val state get() = _state.asStateFlow()
-    private val _state = MutableStateFlow<ProductsListState>(ProductsListState.IsEmpty)
-
+) : BaseViewModel<ProductAction, ProductsListState>(ProductsListState.IsEmpty) {
     val oneTimeEvents get() = _oneTimeEvents.asSharedFlow()
     private val _oneTimeEvents = MutableSharedFlow<ProductsListEvents>()
 
@@ -106,11 +104,7 @@ class ProductListViewModel @Inject constructor(
         }
     }
 
-    private fun setState(state: ProductsListState) {
-        _state.value = state
-    }
-
-    fun onAction(action: ProductAction) {
+    override fun onAction(action: ProductAction) {
         when (action) {
             ProductAction.OnScrollToEnd -> loadNext()
             ProductAction.Reload -> loadInitial()
@@ -133,6 +127,18 @@ class ProductListViewModel @Inject constructor(
     companion object {
         const val PAGE_SIZE = 20
         const val INITIAL_PAGE = 1
+    }
+}
+
+abstract class BaseViewModel<Action, State>(initialState: State) : ViewModel() {
+
+    val state: StateFlow<State> get() = _state.asStateFlow()
+    private val _state = MutableStateFlow(initialState)
+
+    abstract fun onAction(action: Action)
+
+    protected fun setState(state: State) {
+        _state.value = state
     }
 }
 

@@ -63,7 +63,7 @@ class LoginFragment : Fragment() {
 
                 LoginOneTimeEvent.GoToRegistration -> {
                     parentFragmentManager.beginTransaction().addToBackStack(null)
-                        .add(R.id.main, RegistrationFragment()).commit()
+                        .add(R.id.main, RegistrationFragment()).commitAllowingStateLoss()
                 }
             }
         }.launchIn(lifecycleScope)

@@ -114,17 +114,7 @@ private fun RegistrationColumn(
             },
             isError = registerState.isPasswordWrong
         )
-        Spacer(modifier = Modifier.padding(8.dp))
-        RegisterInputTextField(
-            title = stringResource(id = R.string.cpassword),
-            value = registerState.registerForm.cpassword,
-            isPassword = true,
-            onTextChanged = {
-                onAction(RegistrationAction.OnCpasswordChanged(it))
-            },
-            isError = registerState.isCpasswordWrong
-        )
-        Spacer(modifier = Modifier.padding(60.dp))
+        Spacer(modifier = Modifier.padding(30.dp))
 
         EnterButton(registerState.isLoading, onAction)
         Spacer(modifier = Modifier.padding(25.dp))

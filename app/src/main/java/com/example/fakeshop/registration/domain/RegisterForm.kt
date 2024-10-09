@@ -4,5 +4,5 @@ data class RegisterForm(
     val name: String,
     val email: String,
     val password: String,
-    val cpassword: String,
+    val avatar: String = "https://picsum.photos/800"
 )
