@@ -16,8 +16,7 @@ class RegistrationRepositoryImpl @Inject constructor(
                 name = registerForm.name,
                 email = registerForm.email,
                 password = registerForm.password,
-                confirmedPassword = registerForm.cpassword
             )
-        ).status == "success"
+        ).id
     }
 }

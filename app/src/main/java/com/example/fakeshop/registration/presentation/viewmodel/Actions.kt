@@ -6,6 +6,5 @@ sealed interface RegistrationAction {
     data class OnNameChanged(val nameValue: String) : RegistrationAction
     data class OnEmailChanged(val emailValue: String) : RegistrationAction
     data class OnPasswordChanged(val passwordValue: String) : RegistrationAction
-    data class OnCpasswordChanged(val cpasswordValue: String) : RegistrationAction
 
 }

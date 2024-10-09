@@ -2,11 +2,9 @@ package com.example.fakeshop.login.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fakeshop.OpenAppOneTimeEvent
 import com.example.fakeshop.R
 import com.example.fakeshop.login.domain.LoginForm
 import com.example.fakeshop.login.domain.LoginUseCase
-import com.example.fakeshop.login.domain.ProfileUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -15,8 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase,
-    private val profileUseCase: ProfileUseCase
+    private val loginUseCase: LoginUseCase
 ) : ViewModel() {
     val state get() = _state.asStateFlow()
     private val _state = MutableStateFlow(LoginState.INITIAL)
@@ -24,29 +21,12 @@ class LoginViewModel @Inject constructor(
     val eventFlow get() = _eventFlow.asSharedFlow()
     private val _eventFlow = MutableSharedFlow<LoginOneTimeEvent>()
 
-    val mainEventFlow get() = _mainEventFlow.asSharedFlow()
-    private val _mainEventFlow = MutableSharedFlow<OpenAppOneTimeEvent>()
-
     fun onAction(action: LoginAction) {
         when (action) {
             is LoginAction.EnterClick -> submitLoginForm()
             is LoginAction.OnEmailChanged -> changeEmail(action.emailValue)
             is LoginAction.OnPasswordChanged -> changePassword(action.passwordValue)
             is LoginAction.DontHaveAccount -> haveNoAccount()
-        }
-    }
-
-    fun getProfile() {
-        viewModelScope.launch {
-            val token = profileUseCase.getToken()
-            try {
-                if (token != null) {
-                    profileUseCase.getProfile(token)
-                    _mainEventFlow.emit(OpenAppOneTimeEvent.NaviGateToProductListFragment)
-                }
-            } catch (e: Exception) {
-                _mainEventFlow.emit(OpenAppOneTimeEvent.NavigateToLoginFragment)
-            }
         }
     }
 
@@ -61,9 +41,7 @@ class LoginViewModel @Inject constructor(
             val currentState = state.value
             try {
                 _state.value = currentState.copy(isLoading = true)
-                val response = loginUseCase.login(state.value.loginForm)
-                _state.value = currentState.copy(token = response.token)
-                profileUseCase.setToken(token = state.value.token)
+                loginUseCase.login(state.value.loginForm)
                 _eventFlow.emit(LoginOneTimeEvent.NavigateToProductList)
             } catch (e: Exception) {
                 _eventFlow.emit(LoginOneTimeEvent.MakeErrorToast(R.string.something_wrong))
@@ -88,7 +66,6 @@ class LoginViewModel @Inject constructor(
 
 data class LoginState(
     val loginForm: LoginForm,
-    val token: String = "",
     val isLoading: Boolean = false
 ) {
     companion object {

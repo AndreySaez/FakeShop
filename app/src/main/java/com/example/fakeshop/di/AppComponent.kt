@@ -3,10 +3,11 @@ package com.example.fakeshop.di
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.fakeshop.ApiInterface
-import com.example.fakeshop.MainActivity
 import com.example.fakeshop.login.data.LoginDataModule
 import com.example.fakeshop.login.presentation.LoginPresentationModule
 import com.example.fakeshop.login.presentation.view.LoginFragment
+import com.example.fakeshop.main_activity.MainActivity
+import com.example.fakeshop.main_activity.MainActivityModule
 import com.example.fakeshop.productlist.data.category.CategoriesDataModule
 import com.example.fakeshop.productlist.data.list.ProductListDataModule
 import com.example.fakeshop.productlist.domain.list.ProductListPresentationModule
@@ -34,7 +35,8 @@ import kotlin.reflect.KClass
         ProductListDataModule::class,
         ProductListPresentationModule::class,
         CategoriesDataModule::class,
-        FiltersPresentationModule::class
+        FiltersPresentationModule::class,
+        MainActivityModule::class
     ]
 )
 interface AppComponent {

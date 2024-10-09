@@ -28,7 +28,6 @@ class RegistrationViewModel @Inject constructor(
             is RegistrationAction.OnNameChanged -> changeName(action.nameValue)
             is RegistrationAction.OnEmailChanged -> changeEmail(action.emailValue)
             is RegistrationAction.OnPasswordChanged -> changePassword(action.passwordValue)
-            is RegistrationAction.OnCpasswordChanged -> changeCpassword(action.cpasswordValue)
             is RegistrationAction.haveAccountClicked -> alreadyHaveAccount()
         }
     }
@@ -59,22 +58,14 @@ class RegistrationViewModel @Inject constructor(
         validateForm()
     }
 
-    private fun changeCpassword(cpasswordValue: String) {
-        val currentState = state.value
-        val newForm = currentState.registerForm.copy(cpassword = cpasswordValue)
-        _state.value = currentState.copy(registerForm = newForm)
-        validateForm()
-    }
-
     private fun validateForm() {
         var currentState = state.value
         currentState = currentState.copy(
             isPasswordWrong = (
                     currentState.registerForm
                         .password.length !in 8..24
-                    ), isCpasswordWrong = (
-                    currentState.registerForm.password != currentState.registerForm.cpassword
-                    ), isEmailWrong = (
+                    ),
+            isEmailWrong = (
                     !currentState.registerForm.email
                         .matches(android.util.Patterns.EMAIL_ADDRESS.toRegex())
                     )
@@ -103,11 +94,10 @@ data class RegisterState(
     val isLoading: Boolean = false,
     val isPasswordWrong: Boolean = false,
     val isEmailWrong: Boolean = false,
-    val isCpasswordWrong: Boolean = false
 ) {
     companion object {
         val INITIAL = RegisterState(
-            RegisterForm("", "", "", "")
+            RegisterForm("", "", "")
         )
     }
 }
