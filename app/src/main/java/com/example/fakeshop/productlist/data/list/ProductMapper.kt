@@ -6,11 +6,10 @@ import javax.inject.Inject
 class ProductMapper @Inject constructor() {
     fun toProduct(productDTO: ProductDTO) = Product(
         id = productDTO.id,
-        name = productDTO.name,
-        category = productDTO.category ?: emptyList(),
+        name = productDTO.title,
+        category = productDTO.category,
         price = productDTO.price,
-        discountPrice = productDTO.discountPrice ?: productDTO.price,
-        images = productDTO.images?: emptyList(),
-        description = productDTO.description ?: ""
+        images = productDTO.images,
+        description = productDTO.description
     )
 }

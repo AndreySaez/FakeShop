@@ -1,5 +1,7 @@
 package com.example.fakeshop.productlist.domain.list
 
+import com.example.fakeshop.productlist.domain.category.Category
+import com.example.fakeshop.productlist.domain.price.PriceSort
 import javax.inject.Inject
 
 class ProductListUseCase @Inject constructor(
@@ -8,10 +10,16 @@ class ProductListUseCase @Inject constructor(
     suspend fun getProductList(
         nextPage: Int,
         pageSize: Int,
+        priceSort: PriceSort? = null,
         category: Category? = null,
-        sort: PriceSort = PriceSort.DEFAULT,
-    ): ProductListResult {
-        val request = repository.getProductList(nextPage, pageSize, category, sort)
+
+        ): ProductListResult {
+        val request = repository.getProductList(
+            nextPage = nextPage,
+            pageSize = pageSize,
+            priceSort = priceSort,
+            category = category
+        )
         return ProductListResult(productList = request)
     }
 }

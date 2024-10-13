@@ -9,33 +9,38 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fakeshop.R
-import com.example.fakeshop.productlist.domain.list.Category
-import com.example.fakeshop.productlist.domain.list.PriceSort
+import com.example.fakeshop.productlist.domain.category.Category
+import com.example.fakeshop.productlist.domain.price.PriceSort
 import com.example.fakeshop.productlist.presentation.viewModel.FiltersAction
 import com.example.fakeshop.productlist.presentation.viewModel.FiltersState
 import com.example.fakeshop.productlist.presentation.viewModel.FiltersViewModel
@@ -48,14 +53,14 @@ private fun FiltersPreview() {
         FiltersScreen(
             FiltersState(
                 categories = listOf(
-                    Category("Категория", "dsad"),
-                    Category("Категория", "dsad"),
-                    Category("Категория", "dsad"),
-                    Category("Категория", "dsad"),
-                ),
-                selectedCategory = Category("Ебанина", "dsad"),
-                sorts = PriceSort.entries,
-                selectedSort = PriceSort.DEFAULT
+                    Category("Категория", 1),
+                    Category("Категория", 2),
+                    Category("Категория", 3),
+                    Category("Категория", 4),
+
+                    ),
+                selectedCategory = Category("Выбранная категория", 1),
+                priceSort = PriceSort(null, null)
             )
         )
     }
@@ -90,7 +95,9 @@ private fun FiltersScreen(
                 onAction
             )
             Spacer(modifier = Modifier.height(10.dp))
-            Sortings(sortings = state.sorts, currentSort = state.selectedSort, onAction)
+            Sorting(
+                onAction
+            )
             Spacer(Modifier.padding(16.dp))
             Button(
                 onClick = { onAction(FiltersAction.SubmitFilters) },
@@ -151,14 +158,9 @@ fun ColumnScope.Categories(
 }
 
 @Composable
-fun ColumnScope.Sortings(
-    sortings: List<PriceSort>,
-    currentSort: PriceSort?,
-    onAction: (FiltersAction) -> Unit
+fun ColumnScope.Sorting(
+    onAction: (FiltersAction) -> Unit = {},
 ) {
-
-    if (sortings.isEmpty()) return
-
     Text(
         stringResource(id = R.string.sortings_title),
         fontWeight = FontWeight.Bold,
@@ -166,40 +168,72 @@ fun ColumnScope.Sortings(
         fontSize = 20.sp,
         modifier = Modifier.padding(top = 10.dp)
     )
-
-    sortings.forEach {
-        SortingView(it, it == currentSort, onAction)
-    }
-
+    Spacer(modifier = Modifier.padding(8.dp))
+    SortingView(onAction)
 }
 
 @Composable
-private fun SortingView(sort: PriceSort, isSelected: Boolean, onAction: (FiltersAction) -> Unit) {
-    Row(
-        Modifier.clickable {
-            onAction(FiltersAction.OnSortingClicked(sort))
-        }
-    ) {
-        Checkbox(
-            checked = isSelected,
-            onCheckedChange = {
-            },
-            colors = CheckboxDefaults.colors().copy(
-                checkedBoxColor = Color.Gray
-            )
+private fun SortingView(
+    onAction: (FiltersAction) -> Unit = {},
+    filterState: FiltersState = FiltersState.INITIAL
+) {
+    Column {
+        PriceInputTextField(
+            title = stringResource(id = R.string.minimal_price),
+            value = if (filterState.priceSort?.priceMin == null) ""
+            else filterState.priceSort.priceMin.toString(),
+            onTextChanged = {
+                if (it.isNotEmpty()) {
+                    onAction(FiltersAction.OnMinimalPriceChanged(it.toInt()))
+                }
+            }
         )
-        Text(
-            stringResource(id = sort.toName()),
-            fontWeight = FontWeight.Bold,
-            color = Color.White,
-            fontSize = 20.sp,
-            modifier = Modifier.padding(top = 10.dp)
+        Spacer(modifier = Modifier.padding(4.dp))
+        PriceInputTextField(
+            value = if (filterState.priceSort?.priceMax == null) ""
+            else filterState.priceSort.priceMax.toString(),
+            title = stringResource(id = R.string.maximum_price),
+            onTextChanged = {
+                if (it.isNotEmpty()) {
+                    onAction(FiltersAction.OnMaximumPriceChanged(it.toInt()))
+                }
+            }
         )
     }
 }
 
-private fun PriceSort.toName() = when (this) {
-    PriceSort.DEFAULT -> R.string.sorting_default
-    PriceSort.ASC -> R.string.sorting_price_ascending
-    PriceSort.DESC -> R.string.sorting_price_descending
+@Composable
+private fun PriceInputTextField(
+    title: String = "",
+    value: String,
+    onTextChanged: (String) -> Unit = {},
+) {
+    var price by rememberSaveable { mutableStateOf(value) }
+    OutlinedTextField(
+        modifier = Modifier
+            .height(55.dp),
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color(0xff262624),
+            unfocusedContainerColor = Color(0xff262624),
+            disabledContainerColor = Color(0xff262624),
+            unfocusedIndicatorColor = Color.Transparent,
+            focusedIndicatorColor = Color.LightGray,
+            errorIndicatorColor = Color.Red,
+            disabledTextColor = Color.White,
+            focusedTextColor = Color.White,
+            unfocusedTextColor = Color.White,
+            errorTextColor = Color.White
+        ),
+        singleLine = true,
+        shape = Shapes().small,
+        value = price,
+        onValueChange = {
+            price = it
+            onTextChanged(price)
+        },
+        placeholder = {
+            Text(text = title, color = Color(0xff9D9D9D))
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+    )
 }

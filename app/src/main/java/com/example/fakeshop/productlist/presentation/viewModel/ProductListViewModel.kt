@@ -2,10 +2,10 @@ package com.example.fakeshop.productlist.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fakeshop.productlist.domain.list.Category
-import com.example.fakeshop.productlist.domain.list.PriceSort
+import com.example.fakeshop.productlist.domain.category.Category
 import com.example.fakeshop.productlist.domain.list.Product
 import com.example.fakeshop.productlist.domain.list.ProductListUseCase
+import com.example.fakeshop.productlist.domain.price.PriceSort
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,13 +22,12 @@ class ProductListViewModel @Inject constructor(
     private val _oneTimeEvents = MutableSharedFlow<ProductsListEvents>()
 
 
-    private var nextPage = INITIAL_PAGE
     private var hasMoreItems = true
-
     private var loadingJob: Job? = null
 
+    private var nextPage = INITIAL_PAGE
     private var currentCategory: Category? = null
-    private var currentSort: PriceSort = PriceSort.DEFAULT
+    private var currentSort: PriceSort? = null
 
     init {
         loadInitial()
@@ -56,10 +55,10 @@ class ProductListViewModel @Inject constructor(
     private suspend fun load() {
         val loadedProducts = try {
             getProductsUseCase.getProductList(
-                nextPage,
-                PAGE_SIZE,
-                currentCategory,
-                currentSort
+                nextPage = nextPage,
+                pageSize = PAGE_SIZE,
+                priceSort = currentSort,
+                category = currentCategory
             ).productList
         } catch (e: Exception) {
             handleLoadingError()
@@ -117,7 +116,7 @@ class ProductListViewModel @Inject constructor(
         _oneTimeEvents.emit(ProductsListEvents.OpenFilters(currentCategory, currentSort))
     }
 
-    private fun changeCategory(category: Category?, sort: PriceSort) {
+    private fun changeCategory(category: Category?, sort: PriceSort?) {
         if (currentCategory == category && currentSort == sort) return
         currentCategory = category
         currentSort = sort
@@ -126,7 +125,7 @@ class ProductListViewModel @Inject constructor(
 
     companion object {
         const val PAGE_SIZE = 20
-        const val INITIAL_PAGE = 1
+        const val INITIAL_PAGE = 0
     }
 }
 
