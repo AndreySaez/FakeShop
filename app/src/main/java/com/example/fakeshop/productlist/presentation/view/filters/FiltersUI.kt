@@ -60,7 +60,7 @@ private fun FiltersPreview() {
 
                     ),
                 selectedCategory = Category("Выбранная категория", 1),
-                priceSort = PriceSort(null, null)
+                priceSort = PriceSort(0, 0)
             )
         )
     }
@@ -96,7 +96,8 @@ private fun FiltersScreen(
             )
             Spacer(modifier = Modifier.height(10.dp))
             Sorting(
-                onAction
+                onAction,
+                state
             )
             Spacer(Modifier.padding(16.dp))
             Button(
@@ -160,6 +161,7 @@ fun ColumnScope.Categories(
 @Composable
 fun ColumnScope.Sorting(
     onAction: (FiltersAction) -> Unit = {},
+    filterState: FiltersState
 ) {
     Text(
         stringResource(id = R.string.sortings_title),
@@ -169,19 +171,22 @@ fun ColumnScope.Sorting(
         modifier = Modifier.padding(top = 10.dp)
     )
     Spacer(modifier = Modifier.padding(8.dp))
-    SortingView(onAction)
+    PriceSortingView(onAction, filterState)
 }
 
 @Composable
-private fun SortingView(
+private fun PriceSortingView(
     onAction: (FiltersAction) -> Unit = {},
     filterState: FiltersState = FiltersState.INITIAL
 ) {
     Column {
         PriceInputTextField(
             title = stringResource(id = R.string.minimal_price),
-            value = if (filterState.priceSort?.priceMin == null) ""
-            else filterState.priceSort.priceMin.toString(),
+            value = if (filterState.priceSort?.priceMin == null) {
+                ""
+            } else {
+                filterState.priceSort.priceMin.toString()
+            },
             onTextChanged = {
                 if (it.isNotEmpty()) {
                     onAction(FiltersAction.OnMinimalPriceChanged(it.toInt()))
@@ -190,8 +195,11 @@ private fun SortingView(
         )
         Spacer(modifier = Modifier.padding(4.dp))
         PriceInputTextField(
-            value = if (filterState.priceSort?.priceMax == null) ""
-            else filterState.priceSort.priceMax.toString(),
+            value = if (filterState.priceSort?.priceMax == null) {
+                ""
+            } else {
+                filterState.priceSort.priceMax.toString()
+            },
             title = stringResource(id = R.string.maximum_price),
             onTextChanged = {
                 if (it.isNotEmpty()) {

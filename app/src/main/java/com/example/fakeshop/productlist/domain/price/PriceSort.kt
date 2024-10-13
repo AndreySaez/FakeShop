@@ -5,6 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PriceSort(
-    val priceMin: Int?,
-    val priceMax: Int?
+    val priceMin: Int,
+    val priceMax: Int
 ) : Parcelable
