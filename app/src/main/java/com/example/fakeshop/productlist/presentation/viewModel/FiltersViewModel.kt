@@ -2,9 +2,11 @@ package com.example.fakeshop.productlist.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.fakeshop.productlist.domain.category.Category
 import com.example.fakeshop.productlist.domain.category.CategoryRepository
-import com.example.fakeshop.productlist.domain.list.Category
-import com.example.fakeshop.productlist.domain.list.PriceSort
+import com.example.fakeshop.productlist.domain.price.PriceSort
+import com.example.fakeshop.productlist.presentation.view.filters.InputPriceSort
+import com.example.fakeshop.productlist.presentation.view.filters.PriceSortMapper
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,6 +17,7 @@ import javax.inject.Inject
 
 class FiltersViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository,
+    private val mapper: PriceSortMapper
 ) : ViewModel() {
     val state: StateFlow<FiltersState> get() = _state.asStateFlow()
     private val _state = MutableStateFlow(FiltersState.INITIAL)
@@ -24,33 +27,37 @@ class FiltersViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val currentState = state.value
-            _state.value = currentState.copy(
-                categories = categoryRepository.getCategories(),
-                sorts = PriceSort.entries
-            )
+            val categories = categoryRepository.getCategories()
+            _state.value = _state.value.copy(categories = categories)
         }
     }
 
     fun onAction(action: FiltersAction) = when (action) {
         is FiltersAction.OnCategoryClicked -> changeCategory(action.category)
-        is FiltersAction.OnSortingClicked -> changeSorting(action.sort)
         is FiltersAction.SetInitialFilters -> setInitialFilters(action.sort, action.category)
+        is FiltersAction.OnMaximumPriceChanged -> changeMaximumPriceSort(action.price)
+        is FiltersAction.OnMinimalPriceChanged -> changeMinimalPriceSort(action.price)
         FiltersAction.SubmitFilters -> submit()
     }
 
-    private fun setInitialFilters(sort: PriceSort, category: Category?) {
+    private fun setInitialFilters(sort: PriceSort?, category: Category?) {
+        val inputSort = mapper.priceToInput(sort)
         _state.value = state.value.copy(
             selectedCategory = category,
-            selectedSort = sort
+            priceSort = inputSort
         )
     }
 
-    private fun changeSorting(sort: PriceSort) {
+    private fun changeMaximumPriceSort(priceValue: Int?) {
         val currentState = state.value
-        _state.value = currentState.copy(
-            selectedSort = sort
-        )
+        val newPriceSort = currentState.priceSort.copy(priceMax = priceValue)
+        _state.value = _state.value.copy(priceSort = newPriceSort)
+    }
+
+    private fun changeMinimalPriceSort(priceValue: Int?) {
+        val currentState = state.value
+        val newPriceSort = currentState.priceSort.copy(priceMin = priceValue)
+        _state.value = _state.value.copy(priceSort = newPriceSort)
     }
 
     private fun changeCategory(category: Category) {
@@ -61,11 +68,11 @@ class FiltersViewModel @Inject constructor(
     }
 
     private fun submit() {
-        val currentState = state.value
         viewModelScope.launch {
+            val currentState = state.value
             _oneTimeEvents.emit(
                 FiltersOneTimeEvent.SubmitResults(
-                    currentState.selectedCategory, currentState.selectedSort
+                    currentState.selectedCategory, currentState.priceSort
                 )
             )
         }
@@ -75,10 +82,9 @@ class FiltersViewModel @Inject constructor(
 data class FiltersState(
     val categories: List<Category> = emptyList(),
     val selectedCategory: Category? = null,
-    val sorts: List<PriceSort> = emptyList(),
-    val selectedSort: PriceSort = PriceSort.DEFAULT
+    val priceSort: InputPriceSort
 ) {
     companion object {
-        val INITIAL = FiltersState()
+        val INITIAL = FiltersState(priceSort = InputPriceSort(null, null))
     }
 }

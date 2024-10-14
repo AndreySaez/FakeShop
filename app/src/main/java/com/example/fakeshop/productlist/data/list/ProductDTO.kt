@@ -1,13 +1,13 @@
 package com.example.fakeshop.productlist.data.list
 
+import com.example.fakeshop.productlist.domain.category.Category
 import com.google.gson.annotations.SerializedName
 
 data class ProductDTO(
-    @SerializedName("_id") val id: String,
-    @SerializedName("name") val name: String,
-    @SerializedName("category") val category: List<String>?,
+    @SerializedName("id") val id: String,
+    @SerializedName("title") val title: String,
     @SerializedName("price") val price: Int,
-    @SerializedName("discounted_price") val discountPrice: Int?,
-    @SerializedName("images") val images: List<String>?,
-    @SerializedName("description") val description: String?
+    @SerializedName("description") val description: String,
+    @SerializedName("images") val images: List<String>,
+    @SerializedName("category") val category: Category
 )

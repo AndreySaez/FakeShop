@@ -41,19 +41,6 @@
         tools:text="Название товара длинное название ешеш " />
 
     <TextView
-        android:id="@+id/discounted_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/cardView"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="@id/cardView"
-        app:layout_constraintTop_toBottomOf="@id/name"
-        tools:text="3999" />
-
-    <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,7 +50,7 @@
         app:layout_constraintEnd_toEndOf="@id/cardView"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@id/cardView"
-        app:layout_constraintTop_toBottomOf="@id/discounted_price"
+        app:layout_constraintTop_toBottomOf="@id/name"
         tools:text="3999" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

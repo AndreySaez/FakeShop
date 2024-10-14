@@ -1,6 +1,5 @@
 package com.example.fakeshop.productDetails.presentation
 
-import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -47,10 +46,6 @@ class ProductDetailsFragment : Fragment() {
     private fun bindData(product: Product, view: View) {
         view.findViewById<TextView>(R.id.price).apply {
             text = view.context.getString(R.string.price_template, product.price)
-            paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-        }
-        view.findViewById<TextView>(R.id.discounted_price).apply {
-            text = view.context.getString(R.string.price_template, product.discountPrice)
         }
         view.findViewById<TextView>(R.id.title_details).apply {
             text = product.name
