@@ -40,7 +40,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fakeshop.R
 import com.example.fakeshop.productlist.domain.category.Category
-import com.example.fakeshop.productlist.domain.price.PriceSort
 import com.example.fakeshop.productlist.presentation.viewModel.FiltersAction
 import com.example.fakeshop.productlist.presentation.viewModel.FiltersState
 import com.example.fakeshop.productlist.presentation.viewModel.FiltersViewModel
@@ -60,7 +59,7 @@ private fun FiltersPreview() {
 
                     ),
                 selectedCategory = Category("Выбранная категория", 1),
-                priceSort = PriceSort(0, 0)
+                priceSort = InputPriceSort(null, null)
             )
         )
     }
@@ -182,29 +181,25 @@ private fun PriceSortingView(
     Column {
         PriceInputTextField(
             title = stringResource(id = R.string.minimal_price),
-            value = if (filterState.priceSort?.priceMin == null) {
+            value = if (filterState.priceSort.priceMin == null) {
                 ""
             } else {
                 filterState.priceSort.priceMin.toString()
             },
             onTextChanged = {
-                if (it.isNotEmpty()) {
-                    onAction(FiltersAction.OnMinimalPriceChanged(it.toInt()))
-                }
+                onAction(FiltersAction.OnMinimalPriceChanged(it.toIntOrNull()))
             }
         )
         Spacer(modifier = Modifier.padding(4.dp))
         PriceInputTextField(
-            value = if (filterState.priceSort?.priceMax == null) {
+            value = if (filterState.priceSort.priceMax == null) {
                 ""
             } else {
                 filterState.priceSort.priceMax.toString()
             },
             title = stringResource(id = R.string.maximum_price),
             onTextChanged = {
-                if (it.isNotEmpty()) {
-                    onAction(FiltersAction.OnMaximumPriceChanged(it.toInt()))
-                }
+                onAction(FiltersAction.OnMaximumPriceChanged(it.toIntOrNull()))
             }
         )
     }

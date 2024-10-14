@@ -5,7 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.fakeshop.productlist.domain.category.Category
 import com.example.fakeshop.productlist.domain.list.Product
 import com.example.fakeshop.productlist.domain.list.ProductListUseCase
-import com.example.fakeshop.productlist.domain.price.PriceSort
+import com.example.fakeshop.productlist.presentation.view.filters.InputPriceSort
+import com.example.fakeshop.productlist.presentation.view.filters.PriceSortMapper
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ProductListViewModel @Inject constructor(
-    private val getProductsUseCase: ProductListUseCase
+    private val getProductsUseCase: ProductListUseCase,
+    private val mapper: PriceSortMapper
 ) : BaseViewModel<ProductAction, ProductsListState>(ProductsListState.IsEmpty) {
     val oneTimeEvents get() = _oneTimeEvents.asSharedFlow()
     private val _oneTimeEvents = MutableSharedFlow<ProductsListEvents>()
@@ -27,7 +29,7 @@ class ProductListViewModel @Inject constructor(
 
     private var nextPage = INITIAL_PAGE
     private var currentCategory: Category? = null
-    private var currentSort: PriceSort? = null
+    private var currentSort = InputPriceSort(null, null)
 
     init {
         loadInitial()
@@ -57,7 +59,7 @@ class ProductListViewModel @Inject constructor(
             getProductsUseCase.getProductList(
                 nextPage = nextPage,
                 pageSize = PAGE_SIZE,
-                priceSort = currentSort,
+                priceSort = mapper.inputToPrice(currentSort),
                 category = currentCategory
             ).productList
         } catch (e: Exception) {
@@ -107,7 +109,11 @@ class ProductListViewModel @Inject constructor(
         when (action) {
             ProductAction.OnScrollToEnd -> loadNext()
             ProductAction.Reload -> loadInitial()
-            is ProductAction.ChangeFilters -> changeCategory(action.category, action.sort)
+            is ProductAction.ChangeFilters -> changeCategory(
+                action.category,
+                mapper.priceToInput(action.sort)
+            )
+
             ProductAction.OnFiltersClick -> openFilters()
         }
     }
@@ -116,10 +122,12 @@ class ProductListViewModel @Inject constructor(
         _oneTimeEvents.emit(ProductsListEvents.OpenFilters(currentCategory, currentSort))
     }
 
-    private fun changeCategory(category: Category?, sort: PriceSort?) {
+    private fun changeCategory(category: Category?, sort: InputPriceSort?) {
         if (currentCategory == category && currentSort == sort) return
         currentCategory = category
-        currentSort = sort
+        if (sort != null) {
+            currentSort = sort
+        }
         loadInitial()
     }
 

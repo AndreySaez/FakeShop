@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.fakeshop.productlist.domain.category.Category
 import com.example.fakeshop.productlist.domain.category.CategoryRepository
 import com.example.fakeshop.productlist.domain.price.PriceSort
+import com.example.fakeshop.productlist.presentation.view.filters.InputPriceSort
+import com.example.fakeshop.productlist.presentation.view.filters.PriceSortMapper
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,6 +17,7 @@ import javax.inject.Inject
 
 class FiltersViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository,
+    private val mapper: PriceSortMapper
 ) : ViewModel() {
     val state: StateFlow<FiltersState> get() = _state.asStateFlow()
     private val _state = MutableStateFlow(FiltersState.INITIAL)
@@ -38,21 +41,22 @@ class FiltersViewModel @Inject constructor(
     }
 
     private fun setInitialFilters(sort: PriceSort?, category: Category?) {
+        val inputSort = mapper.priceToInput(sort)
         _state.value = state.value.copy(
             selectedCategory = category,
-            priceSort = sort
+            priceSort = inputSort
         )
     }
 
-    private fun changeMaximumPriceSort(priceValue: Int) {
+    private fun changeMaximumPriceSort(priceValue: Int?) {
         val currentState = state.value
-        val newPriceSort = currentState.priceSort?.copy(priceMax = priceValue)
+        val newPriceSort = currentState.priceSort.copy(priceMax = priceValue)
         _state.value = _state.value.copy(priceSort = newPriceSort)
     }
 
-    private fun changeMinimalPriceSort(priceValue: Int) {
+    private fun changeMinimalPriceSort(priceValue: Int?) {
         val currentState = state.value
-        val newPriceSort = currentState.priceSort?.copy(priceMin = priceValue)
+        val newPriceSort = currentState.priceSort.copy(priceMin = priceValue)
         _state.value = _state.value.copy(priceSort = newPriceSort)
     }
 
@@ -78,9 +82,9 @@ class FiltersViewModel @Inject constructor(
 data class FiltersState(
     val categories: List<Category> = emptyList(),
     val selectedCategory: Category? = null,
-    val priceSort: PriceSort?
+    val priceSort: InputPriceSort
 ) {
     companion object {
-        val INITIAL = FiltersState(priceSort = PriceSort(0, 0))
+        val INITIAL = FiltersState(priceSort = InputPriceSort(null, null))
     }
 }

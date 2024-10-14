@@ -23,6 +23,7 @@ import com.example.fakeshop.productlist.domain.category.Category
 import com.example.fakeshop.productlist.domain.list.Product
 import com.example.fakeshop.productlist.domain.price.PriceSort
 import com.example.fakeshop.productlist.presentation.view.filters.FiltersFragment
+import com.example.fakeshop.productlist.presentation.view.filters.PriceSortMapper
 import com.example.fakeshop.productlist.presentation.viewModel.ProductAction
 import com.example.fakeshop.productlist.presentation.viewModel.ProductListViewModel
 import com.example.fakeshop.productlist.presentation.viewModel.ProductsListEvents
@@ -36,6 +37,8 @@ import javax.inject.Inject
 
 class ProductsListFragment : Fragment() {
     private val productListViewModel by viewModels<ProductListViewModel> { viewmodelFactory }
+
+    private val mapper = PriceSortMapper()
 
     @Inject
     lateinit var viewmodelFactory: ViewModelFactory
@@ -147,7 +150,10 @@ class ProductsListFragment : Fragment() {
         productListViewModel.oneTimeEvents
             .onEach {
                 when (it) {
-                    is ProductsListEvents.OpenFilters -> openFilters(it.category, it.sort)
+                    is ProductsListEvents.OpenFilters -> openFilters(
+                        it.category,
+                        mapper.inputToPrice(it.sort)
+                    )
                 }
             }.launchIn(lifecycleScope)
 

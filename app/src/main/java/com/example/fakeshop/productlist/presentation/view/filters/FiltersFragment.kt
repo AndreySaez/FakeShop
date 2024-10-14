@@ -25,6 +25,7 @@ import javax.inject.Inject
 class FiltersFragment : BottomSheetDialogFragment() {
 
     private val viewModel by viewModels<FiltersViewModel> { viewModelFactory }
+    private val mapper = PriceSortMapper()
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -36,7 +37,12 @@ class FiltersFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.onAction(FiltersAction.SetInitialFilters(getCurrentCategory(), getCurrentSort()))
+        viewModel.onAction(
+            FiltersAction.SetInitialFilters(
+                getCurrentCategory(),
+                getCurrentSort()
+            )
+        )
     }
 
     override fun onCreateView(
@@ -52,18 +58,22 @@ class FiltersFragment : BottomSheetDialogFragment() {
 
         viewModel.oneTimeEvents.onEach {
             when (it) {
-                is FiltersOneTimeEvent.SubmitResults -> submitResultsAndFinish(it.category, it.sort)
+                is FiltersOneTimeEvent.SubmitResults -> it.sort?.let { sort ->
+                    submitResultsAndFinish(it.category,
+                        sort
+                    )
+                }
             }
         }.launchIn(lifecycleScope)
     }
 
-    private fun submitResultsAndFinish(category: Category?, sort: PriceSort?) {
+    private fun submitResultsAndFinish(category: Category?, sort: InputPriceSort) {
         val requestCode = getRequestCode() ?: return
         setFragmentResult(
             requestCode,
             bundleOf(
                 CATEGORY_KEY to category,
-                SORT_KEY to sort
+                SORT_KEY to mapper.inputToPrice(sort)
             )
         )
         dismiss()
