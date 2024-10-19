@@ -1,9 +1,9 @@
-package com.example.fakeshop.login.data
+package com.example.fakeshop.login.data.login
 
 import com.google.gson.annotations.SerializedName
 
 
-data class LoginState(
+data class LoginResponse(
     @SerializedName("access_token") val accessToken: String,
     @SerializedName("refresh_token") val refreshToken: String
 )

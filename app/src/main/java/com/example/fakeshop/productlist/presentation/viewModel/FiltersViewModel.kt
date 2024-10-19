@@ -2,6 +2,8 @@ package com.example.fakeshop.productlist.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.fakeshop.R
+import com.example.fakeshop.login.domain.UpdateSessionUseCase
 import com.example.fakeshop.productlist.domain.category.Category
 import com.example.fakeshop.productlist.domain.category.CategoryRepository
 import com.example.fakeshop.productlist.domain.price.PriceSort
@@ -70,12 +72,37 @@ class FiltersViewModel @Inject constructor(
     private fun submit() {
         viewModelScope.launch {
             val currentState = state.value
-            _oneTimeEvents.emit(
-                FiltersOneTimeEvent.SubmitResults(
-                    currentState.selectedCategory, currentState.priceSort
+            if (handleError(currentState)) {
+                _oneTimeEvents.emit(
+                    FiltersOneTimeEvent.SubmitResults(
+                        currentState.selectedCategory, currentState.priceSort
+                    )
                 )
-            )
+            }
         }
+    }
+
+    private suspend fun handleError(currentState: FiltersState): Boolean {
+        try {
+            val currentMinPrice = currentState.priceSort.priceMin
+            val currentMaxPrice = currentState.priceSort.priceMax
+            if (currentMinPrice != null && currentMaxPrice == null) throw IllegalStateException()
+            if (currentMinPrice == null && currentMaxPrice != null) throw IllegalStateException()
+            if (currentMinPrice != null && currentMaxPrice != null) {
+                if (currentMinPrice > currentMaxPrice) throw IllegalArgumentException()
+            }
+        } catch (e: IllegalArgumentException) {
+            _oneTimeEvents.emit(
+                FiltersOneTimeEvent.MakePriceSortErrorToast(R.string.max_price_must_be_higher_then_min_price_toast)
+            )
+            return false
+        } catch (e: IllegalStateException) {
+            _oneTimeEvents.emit(
+                FiltersOneTimeEvent.MakePriceSortErrorToast(R.string.both_prices_must_be_not_empty)
+            )
+            return false
+        }
+        return true
     }
 }
 

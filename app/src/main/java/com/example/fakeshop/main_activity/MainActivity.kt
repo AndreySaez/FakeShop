@@ -1,11 +1,9 @@
 package com.example.fakeshop.main_activity
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.fakeshop.OpenAppOneTimeEvent
 import com.example.fakeshop.R
 import com.example.fakeshop.appComponent
 import com.example.fakeshop.login.presentation.view.LoginFragment

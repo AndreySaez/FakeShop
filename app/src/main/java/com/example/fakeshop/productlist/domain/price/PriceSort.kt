@@ -7,8 +7,4 @@ import kotlinx.parcelize.Parcelize
 data class PriceSort(
     val priceMin: Int,
     val priceMax: Int
-) : Parcelable {
-    init {
-        require(priceMin < priceMax || priceMin == priceMax)
-    }
-}
+) : Parcelable

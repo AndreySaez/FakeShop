@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.fakeshop.R
 import com.example.fakeshop.login.domain.LoginForm
 import com.example.fakeshop.login.domain.LoginUseCase
+import com.example.fakeshop.login.domain.UpdateTokensWorker
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -23,12 +24,13 @@ class LoginViewModel @Inject constructor(
 
     fun onAction(action: LoginAction) {
         when (action) {
-            is LoginAction.EnterClick -> submitLoginForm()
+            LoginAction.EnterClick -> submitLoginForm()
             is LoginAction.OnEmailChanged -> changeEmail(action.emailValue)
             is LoginAction.OnPasswordChanged -> changePassword(action.passwordValue)
-            is LoginAction.DontHaveAccount -> haveNoAccount()
+            LoginAction.DontHaveAccount -> haveNoAccount()
         }
     }
+
 
     private fun haveNoAccount() {
         viewModelScope.launch {

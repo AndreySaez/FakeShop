@@ -2,7 +2,6 @@ package com.example.fakeshop.main_activity
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fakeshop.OpenAppOneTimeEvent
 import com.example.fakeshop.login.domain.ProfileUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

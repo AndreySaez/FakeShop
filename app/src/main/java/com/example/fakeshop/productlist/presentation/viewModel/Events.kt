@@ -6,6 +6,7 @@ import com.example.fakeshop.productlist.presentation.view.filters.InputPriceSort
 
 sealed interface FiltersOneTimeEvent {
     data class SubmitResults(val category: Category?, val sort: InputPriceSort?) : FiltersOneTimeEvent
+    data class MakePriceSortErrorToast(val text:Int):FiltersOneTimeEvent
 }
 
 sealed interface ProductsListEvents {

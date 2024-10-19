@@ -38,7 +38,8 @@ import javax.inject.Inject
 class ProductsListFragment : Fragment() {
     private val productListViewModel by viewModels<ProductListViewModel> { viewmodelFactory }
 
-    private val mapper = PriceSortMapper()
+    @Inject
+    lateinit var mapper:PriceSortMapper
 
     @Inject
     lateinit var viewmodelFactory: ViewModelFactory

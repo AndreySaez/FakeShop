@@ -106,4 +106,10 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation(libs.androidx.room.ktx)
     implementation(libs.logging.interceptor)
+
+    //WorkManager
+    // Kotlin + coroutines
+    implementation(libs.androidx.work.runtime.ktx)
+    // optional - Test helpers
+    androidTestImplementation(libs.androidx.work.testing)
 }

@@ -2,7 +2,9 @@ package com.example.fakeshop.di
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
+import androidx.work.ListenableWorker
 import com.example.fakeshop.ApiInterface
+import com.example.fakeshop.App
 import com.example.fakeshop.login.data.LoginDataModule
 import com.example.fakeshop.login.presentation.LoginPresentationModule
 import com.example.fakeshop.login.presentation.view.LoginFragment
@@ -44,13 +46,13 @@ interface AppComponent {
     fun inject(fragment: LoginFragment)
     fun inject(fragment: ProductsListFragment)
     fun inject(filtersFragment: FiltersFragment)
+    fun inject(mainActivity: MainActivity)
+    fun inject(app: App)
 
     @Component.Factory
     interface Factory {
         fun create(@BindsInstance context: Context): AppComponent
     }
-
-    fun inject(mainActivity: MainActivity)
 }
 
 @Module
@@ -64,3 +66,9 @@ class AppModule {
 @Retention(AnnotationRetention.RUNTIME)
 @MapKey
 annotation class ViewModelKey(val value: KClass<out ViewModel>)
+
+@MustBeDocumented
+@MapKey
+@Target(AnnotationTarget.FUNCTION)
+@Retention(AnnotationRetention.RUNTIME)
+annotation class WorkerKey(val value: KClass<out ListenableWorker>)

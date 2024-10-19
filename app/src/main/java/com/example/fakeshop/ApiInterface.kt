@@ -1,8 +1,9 @@
 package com.example.fakeshop
 
-import com.example.fakeshop.login.data.LoginRequest
-import com.example.fakeshop.login.data.LoginState
-import com.example.fakeshop.login.data.ProfileState
+import com.example.fakeshop.login.data.login.LoginRequest
+import com.example.fakeshop.login.data.login.LoginResponse
+import com.example.fakeshop.login.data.profile.ProfileResponse
+import com.example.fakeshop.login.data.updateTokens.UpdateTokensRequest
 import com.example.fakeshop.productlist.data.category.CategoryResponse
 import com.example.fakeshop.productlist.data.list.ProductDTO
 import com.example.fakeshop.registration.data.RegistrationRequest
@@ -34,13 +35,16 @@ interface ApiInterface {
     ): List<CategoryResponse>
 
     @POST("auth/login")
-    suspend fun logIn(@Body logInRequest: LoginRequest): LoginState
+    suspend fun logIn(@Body logInRequest: LoginRequest): LoginResponse
 
     @GET("auth/profile")
-    suspend fun getProfile(@Header("Authorization") token: String): ProfileState
+    suspend fun getProfile(@Header("Authorization") token: String): ProfileResponse
 
     @POST("users")
     suspend fun registration(@Body createAccountRequest: RegistrationRequest): RegistrationState
+
+    @POST("auth/refresh-token")
+    suspend fun updateTokens(@Body refreshTokensRequest: UpdateTokensRequest): LoginResponse
 
 
     companion object {

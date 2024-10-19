@@ -28,4 +28,6 @@
     <string name="minimal_price">Минимальная цена</string>
     <string name="maximum_price">Максимальная цена</string>
     <string name="description_title">Характеристики</string>
+    <string name="max_price_must_be_higher_then_min_price_toast">Максимальная цена должна быть больше минимальной</string>
+    <string name="both_prices_must_be_not_empty">Оба поля с ценами должны быть заполнены, либо оба должны быть пустыми</string>
 </resources>

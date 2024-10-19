@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
@@ -25,7 +26,9 @@ import javax.inject.Inject
 class FiltersFragment : BottomSheetDialogFragment() {
 
     private val viewModel by viewModels<FiltersViewModel> { viewModelFactory }
-    private val mapper = PriceSortMapper()
+
+    @Inject
+    lateinit var mapper: PriceSortMapper
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -59,10 +62,14 @@ class FiltersFragment : BottomSheetDialogFragment() {
         viewModel.oneTimeEvents.onEach {
             when (it) {
                 is FiltersOneTimeEvent.SubmitResults -> it.sort?.let { sort ->
-                    submitResultsAndFinish(it.category,
-                        sort
-                    )
+                    submitResultsAndFinish(it.category, sort)
                 }
+
+                is FiltersOneTimeEvent.MakePriceSortErrorToast -> Toast.makeText(
+                    context,
+                    it.text,
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }.launchIn(lifecycleScope)
     }
