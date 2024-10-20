@@ -1,8 +1,6 @@
 package com.example.fakeshop.login.domain
 
-import javax.inject.Inject
-
-class UpdateSessionUseCase @Inject constructor(
+class UpdateSessionUseCase(
     private val repository: UpdateTokensRepository,
     private val sessionStorage: SessionStorage
 ) {

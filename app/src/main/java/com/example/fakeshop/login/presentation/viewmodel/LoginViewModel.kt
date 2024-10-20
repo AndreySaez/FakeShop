@@ -14,7 +14,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val updateTokensWorker: UpdateTokensWorker
 ) : ViewModel() {
     val state get() = _state.asStateFlow()
     private val _state = MutableStateFlow(LoginState.INITIAL)
@@ -45,6 +46,7 @@ class LoginViewModel @Inject constructor(
                 _state.value = currentState.copy(isLoading = true)
                 loginUseCase.login(state.value.loginForm)
                 _eventFlow.emit(LoginOneTimeEvent.NavigateToProductList)
+                updateTokensWorker.startTokensUpdatingPeriodicWork()
             } catch (e: Exception) {
                 _eventFlow.emit(LoginOneTimeEvent.MakeErrorToast(R.string.something_wrong))
             } finally {

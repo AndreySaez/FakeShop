@@ -5,8 +5,7 @@ import android.content.SharedPreferences
 import com.example.fakeshop.login.data.login.LoginRepositoryImpl
 import com.example.fakeshop.login.data.profile.ProfileRepositoryImpl
 import com.example.fakeshop.login.data.updateTokens.UpdateTokensRepositoryImpl
-import com.example.fakeshop.login.data.updateTokens.workManager.UpdateTokensWorkerImpl
-import com.example.fakeshop.login.data.updateTokens.workManager.WorkerBindingModule
+import com.example.fakeshop.login.data.updateTokens.workManager.WorkerInitializer
 import com.example.fakeshop.login.domain.LoginRepository
 import com.example.fakeshop.login.domain.ProfileRepository
 import com.example.fakeshop.login.domain.SessionStorage
@@ -18,8 +17,7 @@ import dagger.Provides
 
 @Module(
     includes = [
-        LoginDataModule.Declarations::class,
-        WorkerBindingModule::class
+        LoginDataModule.Declarations::class
     ]
 )
 class LoginDataModule {
@@ -44,6 +42,6 @@ class LoginDataModule {
         abstract fun bindUpdateTokensRepository(updateTokensRepositoryImpl: UpdateTokensRepositoryImpl): UpdateTokensRepository
 
         @Binds
-        abstract fun bindUpdateTokensWorker(updateTokensWorkerImpl: UpdateTokensWorkerImpl): UpdateTokensWorker
+        abstract fun bindUpdateTokensWorker(updateTokensWorkerImpl: WorkerInitializer): UpdateTokensWorker
     }
 }
