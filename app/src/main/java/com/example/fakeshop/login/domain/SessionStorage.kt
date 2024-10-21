@@ -9,7 +9,7 @@ sealed interface Session {
     data class Authorized(
         val accessToken: String,
         val refreshToken: String,
-        val expiringTime: Int = 15
+        val expiringTime: Int = 9
     ) : Session
 
     data object UnAuthorized : Session

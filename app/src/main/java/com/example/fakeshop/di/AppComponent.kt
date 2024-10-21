@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.work.CoroutineWorker
 import com.example.fakeshop.ApiInterface
 import com.example.fakeshop.login.data.LoginDataModule
+import com.example.fakeshop.login.data.updateTokens.workManager.UpdateTokensWorkerImpl
 import com.example.fakeshop.login.presentation.LoginPresentationModule
 import com.example.fakeshop.login.presentation.view.LoginFragment
 import com.example.fakeshop.main_activity.MainActivity
@@ -46,7 +47,7 @@ interface AppComponent {
     fun inject(fragment: ProductsListFragment)
     fun inject(filtersFragment: FiltersFragment)
     fun inject(mainActivity: MainActivity)
-    fun inject(initializer: CoroutineWorker)
+    fun inject(worker: UpdateTokensWorkerImpl)
 
     @Component.Factory
     interface Factory {
