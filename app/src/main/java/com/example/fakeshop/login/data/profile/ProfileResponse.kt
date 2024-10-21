@@ -1,7 +1,7 @@
-package com.example.fakeshop.login.data
+package com.example.fakeshop.login.data.profile
 
 import com.google.gson.annotations.SerializedName
 
-data class ProfileState(
+data class ProfileResponse(
     @SerializedName("id") val id: Int
 )

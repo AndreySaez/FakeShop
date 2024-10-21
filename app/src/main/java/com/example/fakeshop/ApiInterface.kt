@@ -1,9 +1,11 @@
 package com.example.fakeshop
 
-import com.example.fakeshop.login.data.LoginRequest
-import com.example.fakeshop.login.data.LoginState
-import com.example.fakeshop.login.data.ProfileState
-import com.example.fakeshop.productlist.data.list.ProductList
+import com.example.fakeshop.login.data.login.LoginRequest
+import com.example.fakeshop.login.data.login.LoginResponse
+import com.example.fakeshop.login.data.profile.ProfileResponse
+import com.example.fakeshop.login.data.updateTokens.UpdateTokensRequest
+import com.example.fakeshop.productlist.data.category.CategoryResponse
+import com.example.fakeshop.productlist.data.list.ProductDTO
 import com.example.fakeshop.registration.data.RegistrationRequest
 import com.example.fakeshop.registration.data.RegistrationState
 import okhttp3.OkHttpClient
@@ -19,21 +21,30 @@ import retrofit2.http.Query
 
 interface ApiInterface {
     @GET("products")
-    suspend fun productList(
-        @Query("limit") limit: String = "20",
-        @Query("page") page: String = "1",
-        @Query("category") category: String? = null,
-        @Query("sort") sort: String? = null
-    ): ProductList
+    suspend fun getProductList(
+        @Query("price_min") priceMin: Int? = null,
+        @Query("price_max") priceMax: Int? = null,
+        @Query("limit") limit: Int = 20,
+        @Query("offset") page: Int = 0,
+        @Query("categoryId") categoryId: Int? = null
+    ): List<ProductDTO>
+
+    @GET("categories")
+    suspend fun getCategories(
+        @Query("id") id: Int? = null
+    ): List<CategoryResponse>
 
     @POST("auth/login")
-    suspend fun logIn(@Body logInRequest: LoginRequest): LoginState
+    suspend fun logIn(@Body logInRequest: LoginRequest): LoginResponse
 
     @GET("auth/profile")
-    suspend fun getProfile(@Header("Authorization") token: String): ProfileState
+    suspend fun getProfile(@Header("Authorization") token: String): ProfileResponse
 
     @POST("users")
     suspend fun registration(@Body createAccountRequest: RegistrationRequest): RegistrationState
+
+    @POST("auth/refresh-token")
+    suspend fun updateTokens(@Body refreshTokensRequest: UpdateTokensRequest): LoginResponse
 
 
     companion object {

@@ -1,4 +1,4 @@
-package com.example.fakeshop.login.data
+package com.example.fakeshop.login.data.login
 
 import com.google.gson.annotations.SerializedName
 

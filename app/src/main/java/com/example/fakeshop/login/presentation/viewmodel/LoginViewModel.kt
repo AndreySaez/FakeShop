@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.fakeshop.R
 import com.example.fakeshop.login.domain.LoginForm
 import com.example.fakeshop.login.domain.LoginUseCase
+import com.example.fakeshop.login.domain.UpdateTokensWorker
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -13,7 +14,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val updateTokensWorker: UpdateTokensWorker
 ) : ViewModel() {
     val state get() = _state.asStateFlow()
     private val _state = MutableStateFlow(LoginState.INITIAL)
@@ -23,12 +25,13 @@ class LoginViewModel @Inject constructor(
 
     fun onAction(action: LoginAction) {
         when (action) {
-            is LoginAction.EnterClick -> submitLoginForm()
+            LoginAction.EnterClick -> submitLoginForm()
             is LoginAction.OnEmailChanged -> changeEmail(action.emailValue)
             is LoginAction.OnPasswordChanged -> changePassword(action.passwordValue)
-            is LoginAction.DontHaveAccount -> haveNoAccount()
+            LoginAction.DontHaveAccount -> haveNoAccount()
         }
     }
+
 
     private fun haveNoAccount() {
         viewModelScope.launch {
@@ -43,6 +46,7 @@ class LoginViewModel @Inject constructor(
                 _state.value = currentState.copy(isLoading = true)
                 loginUseCase.login(state.value.loginForm)
                 _eventFlow.emit(LoginOneTimeEvent.NavigateToProductList)
+                updateTokensWorker.startTokensUpdatingPeriodicWork()
             } catch (e: Exception) {
                 _eventFlow.emit(LoginOneTimeEvent.MakeErrorToast(R.string.something_wrong))
             } finally {

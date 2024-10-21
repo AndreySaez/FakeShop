@@ -2,14 +2,24 @@ package com.example.fakeshop.login.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.fakeshop.login.data.login.LoginRepositoryImpl
+import com.example.fakeshop.login.data.profile.ProfileRepositoryImpl
+import com.example.fakeshop.login.data.updateTokens.UpdateTokensRepositoryImpl
+import com.example.fakeshop.login.data.updateTokens.workManager.WorkerInitializer
 import com.example.fakeshop.login.domain.LoginRepository
 import com.example.fakeshop.login.domain.ProfileRepository
 import com.example.fakeshop.login.domain.SessionStorage
+import com.example.fakeshop.login.domain.UpdateTokensRepository
+import com.example.fakeshop.login.domain.UpdateTokensWorker
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
-@Module(includes = [LoginDataModule.Declarations::class])
+@Module(
+    includes = [
+        LoginDataModule.Declarations::class
+    ]
+)
 class LoginDataModule {
 
     @Provides
@@ -20,12 +30,18 @@ class LoginDataModule {
     @Module
     abstract class Declarations {
         @Binds
-        abstract fun bindRepository(loginRepositoryImpl: LoginRepositoryImpl): LoginRepository
+        abstract fun bindLoginRepository(loginRepositoryImpl: LoginRepositoryImpl): LoginRepository
 
         @Binds
-        abstract fun bindProfileRepository(profileRepository: ProfileRepositoryImpl): ProfileRepository
+        abstract fun bindProfileRepository(profileRepositoryImpl: ProfileRepositoryImpl): ProfileRepository
 
         @Binds
-        abstract fun bindSessionStorage(impl: SessionStorageImpl): SessionStorage
+        abstract fun bindSessionStorage(sessionStorageImpl: SessionStorageImpl): SessionStorage
+
+        @Binds
+        abstract fun bindUpdateTokensRepository(updateTokensRepositoryImpl: UpdateTokensRepositoryImpl): UpdateTokensRepository
+
+        @Binds
+        abstract fun bindUpdateTokensWorker(updateTokensWorkerImpl: WorkerInitializer): UpdateTokensWorker
     }
 }

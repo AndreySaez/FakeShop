@@ -19,10 +19,11 @@ import com.example.fakeshop.R
 import com.example.fakeshop.appComponent
 import com.example.fakeshop.productDetails.presentation.Navigator
 import com.example.fakeshop.productDetails.presentation.ProductDetailsFragment
-import com.example.fakeshop.productlist.domain.list.Category
-import com.example.fakeshop.productlist.domain.list.PriceSort
+import com.example.fakeshop.productlist.domain.category.Category
 import com.example.fakeshop.productlist.domain.list.Product
+import com.example.fakeshop.productlist.domain.price.PriceSort
 import com.example.fakeshop.productlist.presentation.view.filters.FiltersFragment
+import com.example.fakeshop.productlist.presentation.view.filters.PriceSortMapper
 import com.example.fakeshop.productlist.presentation.viewModel.ProductAction
 import com.example.fakeshop.productlist.presentation.viewModel.ProductListViewModel
 import com.example.fakeshop.productlist.presentation.viewModel.ProductsListEvents
@@ -38,6 +39,9 @@ class ProductsListFragment : Fragment() {
     private val productListViewModel by viewModels<ProductListViewModel> { viewmodelFactory }
 
     @Inject
+    lateinit var mapper:PriceSortMapper
+
+    @Inject
     lateinit var viewmodelFactory: ViewModelFactory
     override fun onAttach(context: Context) {
         context.appComponent.inject(this)
@@ -50,7 +54,7 @@ class ProductsListFragment : Fragment() {
             productListViewModel.onAction(
                 ProductAction.ChangeFilters(
                     bundle.getParcelable(FiltersFragment.CATEGORY_KEY),
-                    bundle.getParcelable(FiltersFragment.SORT_KEY) ?: PriceSort.DEFAULT
+                    bundle.getParcelable(FiltersFragment.SORT_KEY)
                 )
             )
         }
@@ -147,7 +151,10 @@ class ProductsListFragment : Fragment() {
         productListViewModel.oneTimeEvents
             .onEach {
                 when (it) {
-                    is ProductsListEvents.OpenFilters -> openFilters(it.category, it.sort)
+                    is ProductsListEvents.OpenFilters -> openFilters(
+                        it.category,
+                        mapper.inputToPrice(it.sort)
+                    )
                 }
             }.launchIn(lifecycleScope)
 
@@ -167,7 +174,7 @@ class ProductsListFragment : Fragment() {
             .commit()
     }
 
-    private fun openFilters(category: Category?, sort: PriceSort) {
+    private fun openFilters(category: Category?, sort: PriceSort?) {
         FiltersFragment.create(category, sort, FILTER_REQ_CODE).show(parentFragmentManager, "tag")
     }
 

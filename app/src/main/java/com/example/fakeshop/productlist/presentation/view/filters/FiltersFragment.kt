@@ -5,14 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.fakeshop.appComponent
-import com.example.fakeshop.productlist.domain.list.Category
-import com.example.fakeshop.productlist.domain.list.PriceSort
+import com.example.fakeshop.productlist.domain.category.Category
+import com.example.fakeshop.productlist.domain.price.PriceSort
 import com.example.fakeshop.productlist.presentation.viewModel.FiltersAction
 import com.example.fakeshop.productlist.presentation.viewModel.FiltersOneTimeEvent
 import com.example.fakeshop.productlist.presentation.viewModel.FiltersViewModel
@@ -27,6 +28,9 @@ class FiltersFragment : BottomSheetDialogFragment() {
     private val viewModel by viewModels<FiltersViewModel> { viewModelFactory }
 
     @Inject
+    lateinit var mapper: PriceSortMapper
+
+    @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     override fun onAttach(context: Context) {
@@ -36,7 +40,12 @@ class FiltersFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.onAction(FiltersAction.SetInitialFilters(getCurrentCategory(), getCurrentSort()))
+        viewModel.onAction(
+            FiltersAction.SetInitialFilters(
+                getCurrentCategory(),
+                getCurrentSort()
+            )
+        )
     }
 
     override fun onCreateView(
@@ -52,31 +61,39 @@ class FiltersFragment : BottomSheetDialogFragment() {
 
         viewModel.oneTimeEvents.onEach {
             when (it) {
-                is FiltersOneTimeEvent.SubmitResults -> submitResultsAndFinish(it.category, it.sort)
+                is FiltersOneTimeEvent.SubmitResults -> it.sort?.let { sort ->
+                    submitResultsAndFinish(it.category, sort)
+                }
+
+                is FiltersOneTimeEvent.MakePriceSortErrorToast -> Toast.makeText(
+                    context,
+                    it.text,
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }.launchIn(lifecycleScope)
     }
 
-    private fun submitResultsAndFinish(category: Category?, sort: PriceSort) {
+    private fun submitResultsAndFinish(category: Category?, sort: InputPriceSort) {
         val requestCode = getRequestCode() ?: return
         setFragmentResult(
             requestCode,
             bundleOf(
                 CATEGORY_KEY to category,
-                SORT_KEY to sort
+                SORT_KEY to mapper.inputToPrice(sort)
             )
         )
         dismiss()
     }
 
     private fun getCurrentCategory(): Category? = arguments?.getParcelable(CATEGORY_KEY)
-    private fun getCurrentSort(): PriceSort = arguments?.getParcelable(SORT_KEY) ?: PriceSort.DEFAULT
+    private fun getCurrentSort(): PriceSort? = arguments?.getParcelable(SORT_KEY)
     private fun getRequestCode(): String? = arguments?.getString(REQ_CODE_KEY)
 
     companion object {
         fun create(
             currentCategory: Category?,
-            currentSort: PriceSort,
+            currentSort: PriceSort?,
             requestCode: String
         ) = FiltersFragment().apply {
             arguments = bundleOf(

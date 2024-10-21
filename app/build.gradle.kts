@@ -45,6 +45,9 @@ android {
         kotlinCompilerExtensionVersion = "1.5.0"
     }
 }
+tasks.withType<Test>{
+    useJUnitPlatform()
+}
 
 dependencies {
 
@@ -106,4 +109,18 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation(libs.androidx.room.ktx)
     implementation(libs.logging.interceptor)
+
+    //WorkManager
+    // Kotlin + coroutines
+    implementation(libs.androidx.work.runtime.ktx)
+    // optional - Test helpers
+    androidTestImplementation(libs.androidx.work.testing)
+
+    //JUnit5
+    testImplementation (libs.junit.jupiter.api)
+    testRuntimeOnly (libs.junit.jupiter.engine)
+
+    //Mockito
+    testImplementation (libs.mockito.core)
+    testImplementation (libs.mockito.kotlin)
 }

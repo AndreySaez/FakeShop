@@ -1,12 +1,10 @@
 package com.example.fakeshop.productlist.presentation.view.productslist
 
-import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -78,7 +76,6 @@ class ProductsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     private val image = itemView.findViewById<ImageView>(R.id.image)
     private val name = itemView.findViewById<TextView>(R.id.name)
     private val oldPrice = itemView.findViewById<TextView>(R.id.price)
-    private val totalPrice = itemView.findViewById<TextView>(R.id.discounted_price)
     fun bindData(product: Product) {
         val imageData = if (product.images.isNotEmpty()) {
             product.images[0]
@@ -93,12 +90,8 @@ class ProductsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         name.text = product.name.ifEmpty {
             itemView.context.getString(R.string.information_is_issing)
         }
-        oldPrice.apply {
-            isInvisible = product.price == product.discountPrice
-            text = itemView.context.getString(R.string.price_template, product.price)
-            paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-        }
-        totalPrice.text = itemView.context.getString(R.string.price_template, product.discountPrice)
+        oldPrice.text = itemView.context.getString(R.string.price_template, product.price)
+
     }
 
     companion object {

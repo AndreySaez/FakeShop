@@ -1,4 +1,4 @@
-package com.example.fakeshop.login.data
+package com.example.fakeshop.login.data.profile
 
 import com.example.fakeshop.ApiInterface
 import com.example.fakeshop.login.domain.ProfileRepository

@@ -13,7 +13,7 @@
     <string name="products_lis_is_empty">Нет списка товаров</string>
     <string name="repeat_request">Повторить запрос</string>
     <string name="information_is_issing">Информация отсутствует</string>
-    <string name="price_template">%1$d ₽</string>
+    <string name="price_template">%1$d $</string>
     <string name="furtiture">Кухонная хуйня</string>
     <string name="categories_title">Все категории</string>
     <string name="sortings_title">Сортировка</string>
@@ -25,4 +25,9 @@
     <string name="already_have_account">Уже зарегистрирован</string>
     <string name="registrate">Зарегистрироваться</string>
     <string name="have_no_account">У меня нет аккаунта</string>
+    <string name="minimal_price">Минимальная цена</string>
+    <string name="maximum_price">Максимальная цена</string>
+    <string name="description_title">Характеристики</string>
+    <string name="max_price_must_be_higher_then_min_price_toast">Максимальная цена должна быть больше минимальной</string>
+    <string name="both_prices_must_be_not_empty">Оба поля с ценами должны быть заполнены, либо оба должны быть пустыми</string>
 </resources>

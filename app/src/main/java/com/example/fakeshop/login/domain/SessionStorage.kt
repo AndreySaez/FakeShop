@@ -9,28 +9,8 @@ sealed interface Session {
     data class Authorized(
         val accessToken: String,
         val refreshToken: String,
-        val expiringTime: Long = 0L
-    ): Session {
-        override fun equals(other: Any?): Boolean {
-            if (this === other) return true
-            if (javaClass != other?.javaClass) return false
+        val expiringTime: Int = 9
+    ) : Session
 
-            other as Authorized
-
-            if (accessToken != other.accessToken) return false
-            if (refreshToken != other.refreshToken) return false
-            if (expiringTime != other.expiringTime) return false
-
-            return true
-        }
-
-        override fun hashCode(): Int {
-            var result = accessToken.hashCode()
-            result = 31 * result + refreshToken.hashCode()
-            result = 31 * result + expiringTime.hashCode()
-            return result
-        }
-    }
-
-    data object UnAuthorized: Session
+    data object UnAuthorized : Session
 }
