@@ -1,4 +1,4 @@
-package com.example.fakeshop.login.data.updateTokens
+package com.example.coremodule.updateTokens
 
 data class UpdateTokensRequest(
     val refreshToken: String

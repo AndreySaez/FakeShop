@@ -1,6 +1,7 @@
 package com.example.fakeshop.login.data.updateTokens
 
-import com.example.fakeshop.ApiInterface
+import com.example.coremodule.ApiInterface
+import com.example.coremodule.updateTokens.UpdateTokensRequest
 import com.example.fakeshop.login.domain.LoginResult
 import com.example.fakeshop.login.domain.RefreshToken
 import com.example.fakeshop.login.domain.UpdateTokensRepository

@@ -1,6 +1,6 @@
 package com.example.fakeshop.productlist.data.list
 
-import com.example.fakeshop.ApiInterface
+import com.example.coremodule.ApiInterface
 import com.example.fakeshop.productlist.domain.category.Category
 import com.example.fakeshop.productlist.domain.list.Product
 import com.example.fakeshop.productlist.domain.list.ProductListRepository

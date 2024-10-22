@@ -1,6 +1,7 @@
 package com.example.fakeshop.login.data.login
 
-import com.example.fakeshop.ApiInterface
+import com.example.coremodule.ApiInterface
+import com.example.coremodule.login.LoginRequest
 import com.example.fakeshop.login.domain.LoginForm
 import com.example.fakeshop.login.domain.LoginRepository
 import com.example.fakeshop.login.domain.LoginResult
@@ -13,11 +14,12 @@ class LoginRepositoryImpl @Inject constructor(
 ) : LoginRepository {
 
     override suspend fun login(loginForm: LoginForm) = withContext(Dispatchers.IO) {
-        apiInterface.logIn(LoginRequest(loginForm.email, loginForm.password)).let {
-            LoginResult(
-                it.accessToken,
-                it.refreshToken
-            )
-        }
+        apiInterface.logIn(LoginRequest(loginForm.email, loginForm.password))
+            .let {
+                LoginResult(
+                    it.accessToken,
+                    it.refreshToken
+                )
+            }
     }
 }

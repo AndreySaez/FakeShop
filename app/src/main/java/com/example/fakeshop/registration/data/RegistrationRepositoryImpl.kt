@@ -1,6 +1,7 @@
 package com.example.fakeshop.registration.data
 
-import com.example.fakeshop.ApiInterface
+import com.example.coremodule.ApiInterface
+import com.example.coremodule.registration.RegistrationRequest
 import com.example.fakeshop.registration.domain.RegisterForm
 import com.example.fakeshop.registration.domain.RegistrationRepository
 import kotlinx.coroutines.Dispatchers

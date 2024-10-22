@@ -1,4 +1,4 @@
-package com.example.fakeshop.registration.data
+package com.example.coremodule.registration
 
 import com.google.gson.annotations.SerializedName
 

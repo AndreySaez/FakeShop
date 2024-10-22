@@ -1,6 +1,5 @@
-package com.example.fakeshop.productlist.data.list
+package com.example.coremodule.productlist
 
-import com.example.fakeshop.productlist.domain.category.Category
 import com.google.gson.annotations.SerializedName
 
 data class ProductDTO(
@@ -9,5 +8,5 @@ data class ProductDTO(
     @SerializedName("price") val price: Int,
     @SerializedName("description") val description: String,
     @SerializedName("images") val images: List<String>,
-    @SerializedName("category") val category: Category
+    @SerializedName("category") val category: CategoryResponse
 )
