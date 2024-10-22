@@ -1,5 +1,6 @@
 package com.example.fakeshop.productlist.data.category
 
+import com.example.coremodule.productlist.CategoryResponse
 import com.example.fakeshop.productlist.domain.category.Category
 import javax.inject.Inject
 

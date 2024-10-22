@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "FakeShop"
 include(":app")
-include(":coreModule")
+include(":core")

@@ -2,8 +2,7 @@ package com.example.fakeshop.di
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import androidx.work.CoroutineWorker
-import com.example.fakeshop.ApiInterface
+import com.example.coremodule.RetrofitModule
 import com.example.fakeshop.login.data.LoginDataModule
 import com.example.fakeshop.login.data.updateTokens.workManager.UpdateTokensWorkerImpl
 import com.example.fakeshop.login.presentation.LoginPresentationModule
@@ -22,14 +21,11 @@ import com.example.fakeshop.registration.presentation.view.RegistrationFragment
 import dagger.BindsInstance
 import dagger.Component
 import dagger.MapKey
-import dagger.Module
-import dagger.Provides
 import kotlin.reflect.KClass
 
 
 @Component(
     modules = [
-        AppModule::class,
         RegistrationPresentationModule::class,
         RegistrationDataModule::class,
         LoginPresentationModule::class,
@@ -38,7 +34,8 @@ import kotlin.reflect.KClass
         ProductListPresentationModule::class,
         CategoriesDataModule::class,
         FiltersPresentationModule::class,
-        MainActivityModule::class
+        MainActivityModule::class,
+        RetrofitModule::class
     ]
 )
 interface AppComponent {
@@ -53,12 +50,6 @@ interface AppComponent {
     interface Factory {
         fun create(@BindsInstance context: Context): AppComponent
     }
-}
-
-@Module
-class AppModule {
-    @Provides
-    fun apiInterface() = ApiInterface.create()
 }
 
 @MustBeDocumented

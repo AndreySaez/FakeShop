@@ -1,13 +1,13 @@
-package com.example.fakeshop
+package com.example.coremodule
 
-import com.example.fakeshop.login.data.login.LoginRequest
-import com.example.fakeshop.login.data.login.LoginResponse
-import com.example.fakeshop.login.data.profile.ProfileResponse
-import com.example.fakeshop.login.data.updateTokens.UpdateTokensRequest
-import com.example.fakeshop.productlist.data.category.CategoryResponse
-import com.example.fakeshop.productlist.data.list.ProductDTO
-import com.example.fakeshop.registration.data.RegistrationRequest
-import com.example.fakeshop.registration.data.RegistrationState
+import com.example.coremodule.login.LoginRequest
+import com.example.coremodule.login.LoginResponse
+import com.example.coremodule.productlist.CategoryResponse
+import com.example.coremodule.productlist.ProductDTO
+import com.example.coremodule.profile.ProfileResponse
+import com.example.coremodule.registration.RegistrationRequest
+import com.example.coremodule.registration.RegistrationState
+import com.example.coremodule.updateTokens.UpdateTokensRequest
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
