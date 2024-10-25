@@ -1,4 +1,4 @@
-package com.example.fakeshop.productlist.data.category
+package com.example.coremodule.productlist
 
 import com.google.gson.annotations.SerializedName
 
