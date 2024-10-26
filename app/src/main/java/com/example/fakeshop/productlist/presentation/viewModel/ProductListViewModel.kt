@@ -2,8 +2,8 @@ package com.example.fakeshop.productlist.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fakeshop.productlist.domain.category.Category
-import com.example.fakeshop.productlist.domain.list.Product
+import com.example.coremodule.productlist.Category
+import com.example.coremodule.productlist.Product
 import com.example.fakeshop.productlist.domain.list.ProductListUseCase
 import com.example.fakeshop.productlist.presentation.view.filters.InputPriceSort
 import com.example.fakeshop.productlist.presentation.view.filters.PriceSortMapper

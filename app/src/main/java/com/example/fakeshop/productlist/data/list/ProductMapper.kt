@@ -1,8 +1,8 @@
 package com.example.fakeshop.productlist.data.list
 
 import com.example.coremodule.productlist.ProductDTO
-import com.example.fakeshop.productlist.domain.category.Category
-import com.example.fakeshop.productlist.domain.list.Product
+import com.example.coremodule.productlist.Category
+import com.example.coremodule.productlist.Product
 import javax.inject.Inject
 
 class ProductMapper @Inject constructor() {

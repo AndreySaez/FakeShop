@@ -1,6 +1,6 @@
 package com.example.fakeshop.productlist.presentation.viewModel
 
-import com.example.fakeshop.productlist.domain.category.Category
+import com.example.coremodule.productlist.Category
 import com.example.fakeshop.productlist.presentation.view.filters.InputPriceSort
 
 

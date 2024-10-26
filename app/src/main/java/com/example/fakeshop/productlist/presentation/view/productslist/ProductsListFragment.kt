@@ -15,12 +15,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coremodule.productlist.Category
+import com.example.coremodule.productlist.Product
 import com.example.fakeshop.R
 import com.example.fakeshop.appComponent
-import com.example.fakeshop.productDetails.presentation.Navigator
-import com.example.fakeshop.productDetails.presentation.ProductDetailsFragment
-import com.example.fakeshop.productlist.domain.category.Category
-import com.example.fakeshop.productlist.domain.list.Product
 import com.example.fakeshop.productlist.domain.price.PriceSort
 import com.example.fakeshop.productlist.presentation.view.filters.FiltersFragment
 import com.example.fakeshop.productlist.presentation.view.filters.PriceSortMapper
@@ -28,7 +26,9 @@ import com.example.fakeshop.productlist.presentation.viewModel.ProductAction
 import com.example.fakeshop.productlist.presentation.viewModel.ProductListViewModel
 import com.example.fakeshop.productlist.presentation.viewModel.ProductsListEvents
 import com.example.fakeshop.productlist.presentation.viewModel.ProductsListState
-import com.example.fakeshop.productlist.presentation.viewModel.ViewModelFactory
+import com.example.coremodule.ViewModelFactory
+import com.example.productdetails.presentation.Navigator
+import com.example.productdetails.presentation.ProductDetailsFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
@@ -39,7 +39,7 @@ class ProductsListFragment : Fragment() {
     private val productListViewModel by viewModels<ProductListViewModel> { viewmodelFactory }
 
     @Inject
-    lateinit var mapper:PriceSortMapper
+    lateinit var mapper: PriceSortMapper
 
     @Inject
     lateinit var viewmodelFactory: ViewModelFactory
@@ -158,12 +158,11 @@ class ProductsListFragment : Fragment() {
                 }
             }.launchIn(lifecycleScope)
 
-        Navigator.state
-            .onEach {
-                if (it.product != null) {
-                    navigationOnProduct(it.product)
-                }
+        Navigator.state.onEach {
+            if (it.product != null) {
+                navigationOnProduct(it.product!!)
             }
+        }
             .launchIn(lifecycleScope)
     }
 

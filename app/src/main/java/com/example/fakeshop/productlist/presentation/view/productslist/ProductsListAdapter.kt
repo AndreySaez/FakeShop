@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.fakeshop.R
-import com.example.fakeshop.productlist.domain.list.Product
+import com.example.coremodule.productlist.Product
 
 class ProductsListAdapter(
     private val clickListener: (Product) -> Unit

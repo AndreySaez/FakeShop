@@ -1,7 +1,7 @@
 package com.example.fakeshop.productlist.data.category
 
 import com.example.coremodule.ApiInterface
-import com.example.fakeshop.productlist.domain.category.Category
+import com.example.coremodule.productlist.Category
 import com.example.fakeshop.productlist.domain.category.CategoryRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
