@@ -1,4 +1,4 @@
-package com.example.fakeshop.login.domain
+package com.example.registartion_login.login.domain
 
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
