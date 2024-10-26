@@ -1,6 +1,7 @@
 package com.example.fakeshop.productlist.domain.list
 
-import com.example.fakeshop.productlist.domain.category.Category
+import com.example.coremodule.productlist.Product
+import com.example.coremodule.productlist.Category
 import com.example.fakeshop.productlist.domain.price.PriceSort
 
 

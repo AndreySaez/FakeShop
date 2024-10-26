@@ -4,11 +4,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.coremodule.ViewModelFactory
 import com.example.fakeshop.R
 import com.example.fakeshop.appComponent
-import com.example.fakeshop.login.presentation.view.LoginFragment
 import com.example.fakeshop.productlist.presentation.view.productslist.ProductsListFragment
-import com.example.fakeshop.productlist.presentation.viewModel.ViewModelFactory
+import com.example.registartion_login.login.presentation.view.LoginFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject

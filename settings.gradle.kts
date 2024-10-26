@@ -23,3 +23,4 @@ rootProject.name = "FakeShop"
 include(":app")
 include(":core")
 include(":productDetails")
+include(":registration_login")

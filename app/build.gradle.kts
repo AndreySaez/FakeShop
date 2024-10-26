@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.datastore.core.android)
+    implementation(project(":productDetails"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -102,12 +103,6 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation(libs.androidx.room.ktx)
 
-    //WorkManager
-    // Kotlin + coroutines
-    implementation(libs.androidx.work.runtime.ktx)
-    // optional - Test helpers
-    androidTestImplementation(libs.androidx.work.testing)
-
     //JUnit5
     testImplementation (libs.junit.jupiter.api)
     testRuntimeOnly (libs.junit.jupiter.engine)
@@ -118,4 +113,6 @@ dependencies {
 
     //Modules
     implementation(project(":core"))
+    implementation(project(":productDetails"))
+    implementation(project(":registration_login"))
 }

@@ -1,7 +1,7 @@
 package com.example.fakeshop.productlist.data.category
 
 import com.example.coremodule.productlist.CategoryResponse
-import com.example.fakeshop.productlist.domain.category.Category
+import com.example.coremodule.productlist.Category
 import javax.inject.Inject
 
 class CategoryMapper @Inject constructor() {

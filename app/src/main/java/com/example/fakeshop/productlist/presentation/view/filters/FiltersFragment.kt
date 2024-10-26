@@ -12,12 +12,12 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.fakeshop.appComponent
-import com.example.fakeshop.productlist.domain.category.Category
+import com.example.coremodule.productlist.Category
 import com.example.fakeshop.productlist.domain.price.PriceSort
 import com.example.fakeshop.productlist.presentation.viewModel.FiltersAction
 import com.example.fakeshop.productlist.presentation.viewModel.FiltersOneTimeEvent
 import com.example.fakeshop.productlist.presentation.viewModel.FiltersViewModel
-import com.example.fakeshop.productlist.presentation.viewModel.ViewModelFactory
+import com.example.coremodule.ViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

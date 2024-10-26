@@ -3,8 +3,7 @@ package com.example.fakeshop.productlist.presentation.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fakeshop.R
-import com.example.fakeshop.login.domain.UpdateSessionUseCase
-import com.example.fakeshop.productlist.domain.category.Category
+import com.example.coremodule.productlist.Category
 import com.example.fakeshop.productlist.domain.category.CategoryRepository
 import com.example.fakeshop.productlist.domain.price.PriceSort
 import com.example.fakeshop.productlist.presentation.view.filters.InputPriceSort

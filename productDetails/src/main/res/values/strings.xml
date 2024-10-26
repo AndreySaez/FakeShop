@@ -1,0 +1,4 @@
+<resources>
+    <string name="price_template">%1$d $</string>
+    <string name="description_title">Характеристики</string>
+</resources>

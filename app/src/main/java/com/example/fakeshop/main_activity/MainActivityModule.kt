@@ -1,7 +1,7 @@
 package com.example.fakeshop.main_activity
 
 import androidx.lifecycle.ViewModel
-import com.example.fakeshop.di.ViewModelKey
+import com.example.coremodule.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
