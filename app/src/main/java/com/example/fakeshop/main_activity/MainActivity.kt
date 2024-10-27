@@ -7,7 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.coremodule.ViewModelFactory
 import com.example.fakeshop.R
 import com.example.fakeshop.appComponent
-import com.example.fakeshop.productlist.presentation.view.productslist.ProductsListFragment
+import com.example.productslist.presentation.view.productslist.ProductsListFragment
 import com.example.registartion_login.login.presentation.view.LoginFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

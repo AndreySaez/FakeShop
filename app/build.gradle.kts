@@ -114,4 +114,5 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":productDetails"))
     implementation(project(":registration_login"))
+    implementation(project(":productsList"))
 }
