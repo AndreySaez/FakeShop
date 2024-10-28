@@ -2,9 +2,7 @@ package com.example.registartion_login.registration.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.registartion_login.DaggerRegistrationLoginComponent
 import com.example.registartion_login.R
-import com.example.registartion_login.RegistrationLoginComponent
 import com.example.registartion_login.registration.domain.RegisterForm
 import com.example.registartion_login.registration.domain.RegisterUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,9 +15,6 @@ import javax.inject.Inject
 class RegistrationViewModel @Inject constructor(
     private val registerUseCase: RegisterUseCase,
 ) : ViewModel() {
-    val registrationLoginComponent: RegistrationLoginComponent =
-        DaggerRegistrationLoginComponent.builder().build()
-
     val state get() = _state.asStateFlow()
     private val _state = MutableStateFlow(RegisterState.INITIAL)
 

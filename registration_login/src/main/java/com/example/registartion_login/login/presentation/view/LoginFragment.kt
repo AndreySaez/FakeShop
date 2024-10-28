@@ -9,16 +9,13 @@ import android.widget.Toast
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
 import com.example.coremodule.AppRouter
 import com.example.coremodule.ViewModelFactory
-import com.example.registartion_login.R
+import com.example.coremodule.app.productsBaseApp
+import com.example.registartion_login.login.DaggerLoginComponent
 import com.example.registartion_login.login.presentation.viewmodel.LoginOneTimeEvent
 import com.example.registartion_login.login.presentation.viewmodel.LoginViewModel
-import com.example.registartion_login.registration.presentation.view.RegistrationFragment
-import com.example.registartion_login.registration.presentation.viewmodel.RegistrationViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -32,8 +29,13 @@ class LoginFragment : Fragment() {
     @Inject
     lateinit var appRouter: AppRouter
     override fun onAttach(context: Context) {
-        ViewModelProvider(this).get<LoginViewModel>()
-            .registrationLoginComponent.inject(this)
+        DaggerLoginComponent
+            .factory()
+            .create(
+                context = context,
+                appRouter = context.productsBaseApp.provideAppRouter()
+            )
+            .inject(this)
         super.onAttach(context)
     }
 
@@ -67,8 +69,7 @@ class LoginFragment : Fragment() {
                 }
 
                 LoginOneTimeEvent.GoToRegistration -> {
-                    parentFragmentManager.beginTransaction().addToBackStack(null)
-                        .add(R.id.main, RegistrationFragment()).commitAllowingStateLoss()
+                    appRouter.openRegistration(parentFragmentManager)
                 }
             }
         }.launchIn(lifecycleScope)

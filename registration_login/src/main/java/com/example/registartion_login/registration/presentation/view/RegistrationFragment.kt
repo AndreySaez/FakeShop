@@ -10,12 +10,11 @@ import android.widget.Toast
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
 import com.example.coremodule.ViewModelFactory
 import com.example.registartion_login.R
 import com.example.registartion_login.login.presentation.view.LoginFragment
+import com.example.registartion_login.registration.DaggerRegistrationComponent
 import com.example.registartion_login.registration.presentation.viewmodel.RegistrationOneTimeEvent
 import com.example.registartion_login.registration.presentation.viewmodel.RegistrationViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -28,8 +27,7 @@ class RegistrationFragment : Fragment() {
     @Inject
     lateinit var viewmodelFactory: ViewModelFactory
     override fun onAttach(context: Context) {
-        ViewModelProvider(this).get<RegistrationViewModel>()
-            .registrationLoginComponent.inject(this)
+        DaggerRegistrationComponent.builder().build().inject(this)
         super.onAttach(context)
     }
 

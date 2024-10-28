@@ -2,9 +2,9 @@ package com.example.registartion_login.login.data.login
 
 import com.example.coremodule.ApiInterface
 import com.example.coremodule.login.LoginRequest
-import com.example.registartion_login.login.domain.LoginForm
-import com.example.registartion_login.login.domain.LoginRepository
-import com.example.registartion_login.login.domain.LoginResult
+import com.example.registartion_login.login.domain.login.LoginForm
+import com.example.registartion_login.login.domain.login.LoginRepository
+import com.example.registartion_login.login.domain.login.LoginResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

@@ -6,12 +6,10 @@ import com.example.coremodule.RetrofitModule
 import com.example.fakeshop.AppRouterImpl
 import com.example.fakeshop.main_activity.MainActivity
 import com.example.fakeshop.main_activity.MainActivityModule
-import com.example.fakeshop.productlist.data.category.CategoriesDataModule
-import com.example.fakeshop.productlist.data.list.ProductListDataModule
-import com.example.fakeshop.productlist.presentation.view.filters.FiltersFragment
-import com.example.fakeshop.productlist.presentation.view.productslist.ProductListPresentationModule
-import com.example.fakeshop.productlist.presentation.view.productslist.ProductsListFragment
-import com.example.fakeshop.productlist.presentation.viewModel.FiltersPresentationModule
+import com.example.productslist.data.category.CategoriesDataModule
+import com.example.productslist.data.list.ProductListDataModule
+import com.example.productslist.presentation.view.productslist.ProductListPresentationModule
+import com.example.productslist.presentation.viewModel.FiltersPresentationModule
 import com.example.registartion_login.login.data.LoginDataModule
 import dagger.Binds
 import dagger.BindsInstance
@@ -33,9 +31,9 @@ import dagger.Module
 )
 
 interface AppComponent {
-    fun inject(fragment: ProductsListFragment)
-    fun inject(filtersFragment: FiltersFragment)
     fun inject(mainActivity: MainActivity)
+
+    val appRouter: AppRouter
 
     @Component.Factory
     interface Factory {

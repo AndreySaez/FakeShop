@@ -6,7 +6,7 @@ import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
-import com.example.registartion_login.login.domain.UpdateTokensWorker
+import com.example.registartion_login.login.domain.updateTokens.UpdateTokensWorker
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

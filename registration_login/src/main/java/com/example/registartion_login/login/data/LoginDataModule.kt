@@ -6,11 +6,11 @@ import com.example.registartion_login.login.data.login.LoginRepositoryImpl
 import com.example.registartion_login.login.data.profile.ProfileRepositoryImpl
 import com.example.registartion_login.login.data.updateTokens.UpdateTokensRepositoryImpl
 import com.example.registartion_login.login.data.updateTokens.workManager.WorkerInitializer
-import com.example.registartion_login.login.domain.LoginRepository
-import com.example.registartion_login.login.domain.ProfileRepository
+import com.example.registartion_login.login.domain.login.LoginRepository
+import com.example.registartion_login.login.domain.profile.ProfileRepository
 import com.example.registartion_login.login.domain.SessionStorage
-import com.example.registartion_login.login.domain.UpdateTokensRepository
-import com.example.registartion_login.login.domain.UpdateTokensWorker
+import com.example.registartion_login.login.domain.updateTokens.UpdateTokensRepository
+import com.example.registartion_login.login.domain.updateTokens.UpdateTokensWorker
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

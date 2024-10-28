@@ -1,22 +1,20 @@
 package com.example.fakeshop
 
-import android.app.Application
 import android.content.Context
-import com.example.coremodule.ContextProvider
+import com.example.coremodule.AppRouter
+import com.example.coremodule.app.BaseApp
 import com.example.fakeshop.di.AppComponent
 import com.example.fakeshop.di.DaggerAppComponent
 
-class App : Application(), ContextProvider {
+class App : BaseApp() {
     lateinit var appComponent: AppComponent
+
     override fun onCreate() {
         super.onCreate()
         appComponent = DaggerAppComponent.factory().create(this)
-
     }
 
-    override fun provideContext(): Context {
-        return applicationContext
-    }
+    override fun provideAppRouter(): AppRouter = appComponent.appRouter
 }
 
 val Context.appComponent: AppComponent

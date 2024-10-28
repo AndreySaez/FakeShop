@@ -4,8 +4,9 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.example.registartion_login.DaggerRegistrationLoginComponent
-import com.example.registartion_login.login.domain.UpdateSessionUseCase
+import com.example.coremodule.app.productsBaseApp
+import com.example.registartion_login.login.DaggerLoginComponent
+import com.example.registartion_login.login.domain.updateTokens.UpdateSessionUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -19,7 +20,10 @@ class UpdateTokensWorkerImpl @Inject constructor(
     lateinit var updateSessionUseCase: UpdateSessionUseCase
 
     init {
-        DaggerRegistrationLoginComponent.builder().build().inject(this)
+        DaggerLoginComponent.factory().create(
+            context = appContext,
+            appRouter = appContext.productsBaseApp.provideAppRouter()
+        ).inject(this)
     }
 
     override suspend fun doWork(): Result {
