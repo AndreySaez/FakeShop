@@ -2,8 +2,8 @@ package com.example.productslist.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fakeshop.R
 import com.example.coremodule.productlist.Category
+import com.example.productslist.R
 import com.example.productslist.domain.category.CategoryRepository
 import com.example.productslist.domain.price.PriceSort
 import com.example.productslist.presentation.view.filters.InputPriceSort

@@ -38,8 +38,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.fakeshop.R
 import com.example.coremodule.productlist.Category
+import com.example.productslist.R
 import com.example.productslist.presentation.viewModel.FiltersAction
 import com.example.productslist.presentation.viewModel.FiltersState
 import com.example.productslist.presentation.viewModel.FiltersViewModel
@@ -149,7 +149,11 @@ fun ColumnScope.Categories(
                     )
                     .padding(vertical = 3.dp, horizontal = 5.dp)
                     .clickable {
-                        onAction(com.example.productslist.presentation.viewModel.FiltersAction.OnCategoryClicked(category))
+                        onAction(
+                            com.example.productslist.presentation.viewModel.FiltersAction.OnCategoryClicked(
+                                category
+                            )
+                        )
                     }
             )
         }

@@ -2,12 +2,10 @@ package com.example.registartion_login.login.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.registartion_login.DaggerRegistrationLoginComponent
 import com.example.registartion_login.R
-import com.example.registartion_login.RegistrationLoginComponent
-import com.example.registartion_login.login.domain.LoginForm
-import com.example.registartion_login.login.domain.LoginUseCase
-import com.example.registartion_login.login.domain.UpdateTokensWorker
+import com.example.registartion_login.login.domain.login.LoginForm
+import com.example.registartion_login.login.domain.login.LoginUseCase
+import com.example.registartion_login.login.domain.updateTokens.UpdateTokensWorker
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -19,8 +17,6 @@ class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val updateTokensWorker: UpdateTokensWorker
 ) : ViewModel() {
-    val registrationLoginComponent: RegistrationLoginComponent =
-        DaggerRegistrationLoginComponent.builder().build()
     val state get() = _state.asStateFlow()
     private val _state = MutableStateFlow(LoginState.INITIAL)
 

@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.fakeshop.R
 import com.example.coremodule.productlist.Product
+import com.example.productslist.R
 
 class ProductsListAdapter(
     private val clickListener: (Product) -> Unit

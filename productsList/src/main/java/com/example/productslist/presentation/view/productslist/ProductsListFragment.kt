@@ -15,10 +15,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coremodule.AppRouter
+import com.example.coremodule.Navigator
+import com.example.coremodule.ViewModelFactory
+import com.example.coremodule.app.productsBaseApp
 import com.example.coremodule.productlist.Category
 import com.example.coremodule.productlist.Product
-import com.example.fakeshop.R
-import com.example.fakeshop.appComponent
+import com.example.productslist.DaggerProductsListComponent
+import com.example.productslist.R
 import com.example.productslist.domain.price.PriceSort
 import com.example.productslist.presentation.view.filters.FiltersFragment
 import com.example.productslist.presentation.view.filters.PriceSortMapper
@@ -26,9 +30,6 @@ import com.example.productslist.presentation.viewModel.ProductAction
 import com.example.productslist.presentation.viewModel.ProductListViewModel
 import com.example.productslist.presentation.viewModel.ProductsListEvents
 import com.example.productslist.presentation.viewModel.ProductsListState
-import com.example.coremodule.ViewModelFactory
-import com.example.productdetails.presentation.Navigator
-import com.example.productdetails.presentation.ProductDetailsFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
@@ -42,9 +43,15 @@ class ProductsListFragment : Fragment() {
     lateinit var mapper: PriceSortMapper
 
     @Inject
+    lateinit var appRouter: AppRouter
+
+    @Inject
     lateinit var viewmodelFactory: ViewModelFactory
     override fun onAttach(context: Context) {
-        context.appComponent.inject(this)
+        DaggerProductsListComponent.factory().create(
+            context = context,
+            appRouter = context.productsBaseApp.provideAppRouter()
+        ).inject(this)
         super.onAttach(context)
     }
 
@@ -167,7 +174,7 @@ class ProductsListFragment : Fragment() {
     }
 
     private fun navigationOnProduct(product: Product) {
-        val productDetails = ProductDetailsFragment.newInstance(product)
+        val productDetails = appRouter.newInstance(product)
         parentFragmentManager.beginTransaction().addToBackStack(null)
             .add(R.id.main, productDetails)
             .commit()

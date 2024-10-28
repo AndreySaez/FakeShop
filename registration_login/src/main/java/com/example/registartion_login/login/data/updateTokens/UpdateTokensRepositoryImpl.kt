@@ -2,9 +2,9 @@ package com.example.registartion_login.login.data.updateTokens
 
 import com.example.coremodule.ApiInterface
 import com.example.coremodule.updateTokens.UpdateTokensRequest
-import com.example.registartion_login.login.domain.LoginResult
-import com.example.registartion_login.login.domain.RefreshToken
-import com.example.registartion_login.login.domain.UpdateTokensRepository
+import com.example.registartion_login.login.domain.login.LoginResult
+import com.example.registartion_login.login.domain.updateTokens.RefreshToken
+import com.example.registartion_login.login.domain.updateTokens.UpdateTokensRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

@@ -2,7 +2,7 @@ package com.example.fakeshop.main_activity
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.registartion_login.login.domain.ProfileUseCase
+import com.example.registartion_login.login.domain.profile.ProfileUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch

@@ -1,5 +1,7 @@
-package com.example.registartion_login.login.domain
+package com.example.registartion_login.login.domain.updateTokens
 
+import com.example.registartion_login.login.domain.Session
+import com.example.registartion_login.login.domain.SessionStorage
 import javax.inject.Inject
 
 class UpdateSessionUseCase @Inject constructor(

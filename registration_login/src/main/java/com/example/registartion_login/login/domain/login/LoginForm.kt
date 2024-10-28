@@ -1,4 +1,4 @@
-package com.example.registartion_login.login.domain
+package com.example.registartion_login.login.domain.login
 
 data class LoginForm(
     val email: String,

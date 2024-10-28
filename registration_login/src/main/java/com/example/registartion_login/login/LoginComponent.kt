@@ -1,29 +1,31 @@
-package com.example.registartion_login
+package com.example.registartion_login.login
 
+import android.content.Context
 import com.example.coremodule.AppRouter
-import com.example.coremodule.ContextProvider
 import com.example.coremodule.RetrofitModule
 import com.example.registartion_login.login.data.LoginDataModule
 import com.example.registartion_login.login.data.updateTokens.workManager.UpdateTokensWorkerImpl
 import com.example.registartion_login.login.presentation.LoginPresentationModule
 import com.example.registartion_login.login.presentation.view.LoginFragment
-import com.example.registartion_login.registration.data.RegistrationDataModule
-import com.example.registartion_login.registration.presentation.RegistrationPresentationModule
-import com.example.registartion_login.registration.presentation.view.RegistrationFragment
+import dagger.BindsInstance
 import dagger.Component
-
 
 @Component(
     modules = [
         LoginPresentationModule::class,
         LoginDataModule::class,
-        RegistrationPresentationModule::class,
-        RegistrationDataModule::class,
         RetrofitModule::class
-    ], dependencies = [ContextProvider::class, AppRouter::class]
+    ], dependencies = [AppRouter::class]
 )
-interface RegistrationLoginComponent {
-    fun inject(fragment: RegistrationFragment)
+interface LoginComponent {
     fun inject(fragment: LoginFragment)
     fun inject(worker: UpdateTokensWorkerImpl)
+
+    @Component.Factory
+    interface Factory {
+        fun create(
+            @BindsInstance context: Context,
+            appRouter: AppRouter
+        ): LoginComponent
+    }
 }

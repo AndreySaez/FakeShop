@@ -1,4 +1,4 @@
-package com.example.productdetails.presentation
+package com.example.coremodule
 
 import com.example.coremodule.productlist.Product
 import kotlinx.coroutines.flow.MutableStateFlow

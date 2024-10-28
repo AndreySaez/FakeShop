@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("kotlin-kapt")
-    id("kotlin-parcelize")
 }
 
 android {
@@ -15,13 +14,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        kapt {
-            arguments { arg("room.schemaLocation", "$projectDir/schemas") }
-        }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildFeatures {
-        compose = true
     }
 
     buildTypes {
@@ -40,11 +33,8 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.0"
-    }
 }
-tasks.withType<Test>{
+tasks.withType<Test> {
     useJUnitPlatform()
 }
 
@@ -63,9 +53,6 @@ dependencies {
     //dagger
     kapt(libs.dagger.compiler)
 
-    //coil
-    implementation(libs.coil)
-
     //coroutines
     implementation(libs.kotlinx.coroutines.android)
 
@@ -74,41 +61,13 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
-    //Compose
-    val composeBom = platform("androidx.compose:compose-bom:2024.06.00")
-    implementation(composeBom)
-    androidTestImplementation(composeBom)
-
-    // Material Design 3
-    implementation("androidx.compose.material3:material3")
-
-    // Android Studio Preview support
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-
-    // Integration with activities
-    implementation(libs.androidx.activity.compose)
-
-    // Integration with ViewModels
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-
-    //Room
-    implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.room.compiler)
-
-    // To use Kotlin annotation processing tool (kapt)
-    kapt(libs.androidx.room.room.compiler)
-
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation(libs.androidx.room.ktx)
-
     //JUnit5
-    testImplementation (libs.junit.jupiter.api)
-    testRuntimeOnly (libs.junit.jupiter.engine)
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
 
     //Mockito
-    testImplementation (libs.mockito.core)
-    testImplementation (libs.mockito.kotlin)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
 
     //Modules
     implementation(project(":core"))

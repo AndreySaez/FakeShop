@@ -10,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coremodule.Navigator
 import com.example.coremodule.productlist.Product
 import com.example.productdetails.R
 import com.example.productdetails.domain.ProductImage
