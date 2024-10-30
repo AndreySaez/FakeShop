@@ -1,11 +1,12 @@
 pluginManagement {
+    includeBuild("convention-plugins/base")
     repositories {
         google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
+//            content {
+//                includeGroupByRegex("com\\.android.*")
+//                includeGroupByRegex("com\\.google.*")
+//                includeGroupByRegex("androidx.*")
+//            }
         }
         mavenCentral()
         gradlePluginPortal()
@@ -20,6 +21,8 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "FakeShop"
+
+// хочу чтобы модулу сами сюда добавлялись
 include(":app")
 include(":core")
 include(":productDetails")
