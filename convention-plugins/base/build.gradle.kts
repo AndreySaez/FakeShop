@@ -36,5 +36,9 @@ gradlePlugin {
             id = "dagger.config"
             implementationClass = "com.example.conventionplugin.dagger.DaggerPlugin"
         }
+        register("feature.config"){
+            id = "feature.config"
+            implementationClass = "com.example.conventionplugin.featureModule.FeatureModulePlugin"
+        }
     }
 }

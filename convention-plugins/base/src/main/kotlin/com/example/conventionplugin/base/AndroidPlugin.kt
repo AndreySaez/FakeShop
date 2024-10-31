@@ -9,7 +9,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
-class AndroidPlugin: Plugin<Project> {
+class AndroidPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         with(pluginManager) {
             apply(libs.plugins.androidLibrary.get().pluginId)
@@ -36,5 +36,12 @@ class AndroidPlugin: Plugin<Project> {
 
         dependencies.add("implementation", libs.androidx.core.ktx.get())
         dependencies.add("implementation", libs.androidx.appcompat.get())
+
+        afterEvaluate {
+            childProjects.forEach {
+                rootProject.file("settings.gradle.kts")
+                    .appendText("include(${"${{ it.value.name }}"})")
+            }
+        }
     }
 }
