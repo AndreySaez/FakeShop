@@ -32,5 +32,9 @@ gradlePlugin {
             id = "android.base.config"
             implementationClass = "com.example.conventionplugin.base.AndroidPlugin"
         }
+        register("dagger.config") {
+            id = "dagger.config"
+            implementationClass = "com.example.conventionplugin.dagger.DaggerPlugin"
+        }
     }
 }
