@@ -38,7 +38,6 @@ mockitoCore = "4.0.0"
 # Plugins for composite build
 gradleplugin-android = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 gradleplugin-compose = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose" }
-gradleplugin-composeCompiler = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "compose" }
 gradleplugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -74,6 +73,8 @@ mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoCore" }
 
 [plugins]
+kotlinparcelize = { id = "kotlin-parcelize" }
+kotlinkapt = { id = "kotlin-kapt" }
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }

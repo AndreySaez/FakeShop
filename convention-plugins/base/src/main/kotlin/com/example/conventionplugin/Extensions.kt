@@ -1,4 +1,4 @@
-package com.example.conventionplugin.base
+package com.example.conventionplugin
 
 import com.android.build.api.dsl.AndroidResources
 import com.android.build.api.dsl.BuildFeatures
