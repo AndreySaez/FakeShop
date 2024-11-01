@@ -33,6 +33,7 @@ roomRuntime = "2.6.1"
 workRuntimeKtx = "2.9.1"
 junitJupiterApi = "5.8.1"
 mockitoCore = "4.0.0"
+recyclerview = "1.3.2"
 
 [libraries]
 # Plugins for composite build
@@ -71,6 +72,7 @@ junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.re
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiterApi" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoCore" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 
 [plugins]
 kotlinparcelize = { id = "kotlin-parcelize" }

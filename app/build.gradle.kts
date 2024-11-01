@@ -34,9 +34,6 @@ android {
         jvmTarget = "1.8"
     }
 }
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
 
 dependencies {
 
@@ -60,14 +57,6 @@ dependencies {
     implementation(libs.androidx.fragment.ktx.v180)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-
-    //JUnit5
-    testImplementation(libs.junit.jupiter.api)
-    testRuntimeOnly(libs.junit.jupiter.engine)
-
-    //Mockito
-    testImplementation(libs.mockito.core)
-    testImplementation(libs.mockito.kotlin)
 
     //Modules
     implementation(project(":core"))

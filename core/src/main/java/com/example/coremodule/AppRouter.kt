@@ -7,6 +7,5 @@ import com.example.coremodule.productlist.Product
 interface AppRouter {
     fun openRegistration(fragmentManager: FragmentManager)
     fun openProductsList(fragmentManager: FragmentManager)
-    fun openLoginFragment(fragmentManager: FragmentManager)
     fun newInstance(product: Product): Fragment
 }
