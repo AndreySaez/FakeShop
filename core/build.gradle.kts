@@ -1,6 +1,5 @@
 plugins {
-    id("android.base.config")
-    id("dagger.config")
+    id("feature.config")
 }
 
 android {

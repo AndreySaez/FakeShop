@@ -40,5 +40,9 @@ gradlePlugin {
             id = "feature.config"
             implementationClass = "com.example.conventionplugin.featureModule.FeatureModulePlugin"
         }
+        register("compose.config"){
+            id = "compose.config"
+            implementationClass = "com.example.conventionplugin.compose.ComposePlugin"
+        }
     }
 }
