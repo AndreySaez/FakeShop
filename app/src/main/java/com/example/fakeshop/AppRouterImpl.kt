@@ -1,10 +1,7 @@
 package com.example.fakeshop
 
-import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import com.example.coremodule.AppRouter
-import com.example.coremodule.productlist.Product
-import com.example.productdetails.presentation.ProductDetailsFragment
 import com.example.productslist.presentation.view.productslist.ProductsListFragment
 import com.example.registartion_login.R
 import com.example.registartion_login.registration.presentation.view.RegistrationFragment
@@ -19,12 +16,5 @@ class AppRouterImpl @Inject constructor() : AppRouter {
     override fun openProductsList(fragmentManager: FragmentManager) {
         fragmentManager.beginTransaction()
             .replace(R.id.main, ProductsListFragment()).commit()
-    }
-
-    private val PRODUCT_KEY = "Product"
-    override fun newInstance(product: Product): ProductDetailsFragment {
-        return ProductDetailsFragment().apply {
-            arguments = bundleOf(PRODUCT_KEY to product)
-        }
     }
 }

@@ -15,7 +15,7 @@ import com.example.coremodule.productlist.Product
 import com.example.productdetails.R
 import com.example.productdetails.domain.ProductImage
 
-class ProductDetailsFragment : Fragment() {
+internal class ProductDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

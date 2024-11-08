@@ -12,7 +12,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.coremodule.ViewModelFactory
-import com.example.coremodule.app.productsBaseApp
+import com.example.coremodule.findDependency
 import com.example.coremodule.productlist.Category
 import com.example.productslist.DaggerProductsListComponent
 import com.example.productslist.domain.price.PriceSort
@@ -37,7 +37,7 @@ class FiltersFragment : BottomSheetDialogFragment() {
     override fun onAttach(context: Context) {
         DaggerProductsListComponent.factory().create(
             context = context,
-            appRouter = context.productsBaseApp.provideAppRouter()
+            dependencies = context.findDependency()
         ).inject(this)
         super.onAttach(context)
     }

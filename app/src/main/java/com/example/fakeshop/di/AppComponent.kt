@@ -6,6 +6,7 @@ import com.example.coremodule.RetrofitModule
 import com.example.fakeshop.AppRouterImpl
 import com.example.fakeshop.main_activity.MainActivity
 import com.example.fakeshop.main_activity.MainActivityModule
+import com.example.productdetails.ProductDetailsModule
 import com.example.productslist.data.category.CategoriesDataModule
 import com.example.productslist.data.list.ProductListDataModule
 import com.example.productslist.presentation.view.productslist.ProductListPresentationModule
@@ -26,11 +27,12 @@ import dagger.Module
         MainActivityModule::class,
         AppModule::class,
         RetrofitModule::class,
-        LoginDataModule::class
+        LoginDataModule::class,
+        ProductDetailsModule::class
     ]
 )
 
-interface AppComponent {
+interface AppComponent : AppComponentInterface {
     fun inject(mainActivity: MainActivity)
 
     val appRouter: AppRouter

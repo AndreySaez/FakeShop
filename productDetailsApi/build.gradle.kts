@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.productdetails"
+    namespace = "com.example.productdetailsapi"
 }
 
 dependencies {
@@ -12,8 +12,4 @@ dependencies {
 
     //Modules
     implementation(project(":core"))
-    implementation(project(":productDetailsApi"))
-
-    //coil
-    implementation(libs.coil)
 }
