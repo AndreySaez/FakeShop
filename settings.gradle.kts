@@ -46,6 +46,7 @@ val modules = findModules(rootDir)
 val blackList = setOf("convention-plugins:base")
 modules.forEach { module ->
     if (module !in blackList) {
+        println(module)
         include(":$module")
     }
 }
