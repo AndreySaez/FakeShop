@@ -64,4 +64,5 @@ dependencies {
     implementation(project(":registration_login"))
     implementation(project(":productsList"))
     implementation(project(":productDetailsApi"))
+    implementation(project(":productsListApi"))
 }

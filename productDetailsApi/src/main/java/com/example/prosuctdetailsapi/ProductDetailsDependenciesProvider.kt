@@ -1,5 +1,5 @@
 package com.example.prosuctdetailsapi
 
 interface ProductDetailsDependenciesProvider {
-    fun fragmentLauncher(): ProductDetailsFragmentLauncher
+    fun detailsFragmentLauncher(): ProductDetailsFragmentLauncher
 }

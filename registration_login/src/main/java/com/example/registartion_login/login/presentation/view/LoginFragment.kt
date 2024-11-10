@@ -13,6 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.coremodule.AppRouter
 import com.example.coremodule.ViewModelFactory
 import com.example.coremodule.app.productsBaseApp
+import com.example.coremodule.findDependency
+import com.example.productslistapi.ProductsListFragmentLauncher
 import com.example.registartion_login.login.DaggerLoginComponent
 import com.example.registartion_login.login.presentation.viewmodel.LoginOneTimeEvent
 import com.example.registartion_login.login.presentation.viewmodel.LoginViewModel
@@ -27,13 +29,17 @@ class LoginFragment : Fragment() {
     lateinit var viewmodelFactory: ViewModelFactory
 
     @Inject
+    lateinit var productsListFragmentLauncher: ProductsListFragmentLauncher
+
+    @Inject
     lateinit var appRouter: AppRouter
     override fun onAttach(context: Context) {
         DaggerLoginComponent
             .factory()
             .create(
                 context = context,
-                appRouter = context.productsBaseApp.provideAppRouter()
+                appRouter = context.productsBaseApp.provideAppRouter(),
+                dependencies = context.findDependency()
             )
             .inject(this)
         super.onAttach(context)
@@ -65,7 +71,7 @@ class LoginFragment : Fragment() {
                 ).show()
 
                 LoginOneTimeEvent.NavigateToProductList -> {
-                    appRouter.openProductsList(parentFragmentManager)
+                    productsListFragmentLauncher.openProductsList(parentFragmentManager)
                 }
 
                 LoginOneTimeEvent.GoToRegistration -> {

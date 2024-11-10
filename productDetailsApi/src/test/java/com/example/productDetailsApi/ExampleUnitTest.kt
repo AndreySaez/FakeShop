@@ -1,4 +1,4 @@
-package com.example.productDetailsApi
+package com.example.productdetailsapi
 import org.junit.Test
 
 import org.junit.Assert.*
