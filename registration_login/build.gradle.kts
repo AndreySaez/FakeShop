@@ -24,6 +24,7 @@ dependencies {
     //Modules
     implementation(project(":core"))
     implementation(project(":productsListApi"))
+    implementation(project(":registration_login_api"))
 
     //viewModel
     implementation(libs.androidx.fragment.ktx.v180)

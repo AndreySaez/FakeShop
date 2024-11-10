@@ -1,13 +1,12 @@
 package com.example.fakeshop
 
+import android.app.Application
 import android.content.Context
-import com.example.coremodule.AppRouter
 import com.example.coremodule.ComponentProvider
-import com.example.coremodule.app.BaseApp
 import com.example.fakeshop.di.AppComponent
 import com.example.fakeshop.di.DaggerAppComponent
 
-class App : BaseApp(), ComponentProvider<AppComponent> {
+class App : Application(), ComponentProvider<AppComponent> {
 
     lateinit var appComponent: AppComponent
 
@@ -18,8 +17,6 @@ class App : BaseApp(), ComponentProvider<AppComponent> {
 
     override val component: AppComponent
         get() = appComponent
-
-    override fun provideAppRouter(): AppRouter = appComponent.appRouter
 }
 
 val Context.appComponent: AppComponent

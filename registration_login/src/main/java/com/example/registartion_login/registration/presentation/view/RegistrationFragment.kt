@@ -27,7 +27,7 @@ class RegistrationFragment : Fragment() {
     @Inject
     lateinit var viewmodelFactory: ViewModelFactory
     override fun onAttach(context: Context) {
-        DaggerRegistrationComponent.builder().build().inject(this)
+        DaggerRegistrationComponent.factory().create(context = context).inject(this)
         super.onAttach(context)
     }
 
