@@ -10,14 +10,13 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.coremodule.AppRouter
 import com.example.coremodule.ViewModelFactory
-import com.example.coremodule.app.productsBaseApp
 import com.example.coremodule.findDependency
 import com.example.productslistapi.ProductsListFragmentLauncher
 import com.example.registartion_login.login.DaggerLoginComponent
 import com.example.registartion_login.login.presentation.viewmodel.LoginOneTimeEvent
 import com.example.registartion_login.login.presentation.viewmodel.LoginViewModel
+import com.example.registration_login_api.registration.RegistrationFragmentLauncher
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -32,16 +31,15 @@ class LoginFragment : Fragment() {
     lateinit var productsListFragmentLauncher: ProductsListFragmentLauncher
 
     @Inject
-    lateinit var appRouter: AppRouter
+    lateinit var registrationFragmentLauncher: RegistrationFragmentLauncher
     override fun onAttach(context: Context) {
         DaggerLoginComponent
             .factory()
             .create(
                 context = context,
-                appRouter = context.productsBaseApp.provideAppRouter(),
-                dependencies = context.findDependency()
-            )
-            .inject(this)
+                productsListDependency = context.findDependency(),
+                registrationDependency = context.findDependency(),
+            ).inject(this)
         super.onAttach(context)
     }
 
@@ -75,7 +73,7 @@ class LoginFragment : Fragment() {
                 }
 
                 LoginOneTimeEvent.GoToRegistration -> {
-                    appRouter.openRegistration(parentFragmentManager)
+                    registrationFragmentLauncher.openRegistration(parentFragmentManager)
                 }
             }
         }.launchIn(lifecycleScope)
