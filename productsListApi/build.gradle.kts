@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.productdetailsapi"
+    namespace = "com.example.productslistapi"
 }
 
 dependencies {

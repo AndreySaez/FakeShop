@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.coremodule.app.productsBaseApp
+import com.example.coremodule.findDependency
 import com.example.registartion_login.login.DaggerLoginComponent
 import com.example.registartion_login.login.domain.updateTokens.UpdateSessionUseCase
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +23,8 @@ class UpdateTokensWorkerImpl @Inject constructor(
     init {
         DaggerLoginComponent.factory().create(
             context = appContext,
-            appRouter = appContext.productsBaseApp.provideAppRouter()
+            appRouter = appContext.productsBaseApp.provideAppRouter(),
+            dependencies = appContext.findDependency()
         ).inject(this)
     }
 

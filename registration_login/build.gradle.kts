@@ -23,6 +23,7 @@ dependencies {
 
     //Modules
     implementation(project(":core"))
+    implementation(project(":productsListApi"))
 
     //viewModel
     implementation(libs.androidx.fragment.ktx.v180)
