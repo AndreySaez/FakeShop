@@ -1,5 +1,5 @@
 plugins {
-    id("feature.config")
+    id("android.base.config")
 }
 
 android {
@@ -7,9 +7,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.material)
     testImplementation(libs.junit)
-
     //Modules
     implementation(project(":core"))
 }
