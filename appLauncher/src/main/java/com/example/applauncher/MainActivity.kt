@@ -1,14 +1,13 @@
-package com.example.fakeshop.main_activity
+package com.example.applauncher
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.coremodule.ViewModelFactory
-import com.example.fakeshop.R
-import com.example.fakeshop.appComponent
-import com.example.productslist.presentation.view.productslist.ProductsListFragment
-import com.example.registartion_login.login.presentation.view.LoginFragment
+import com.example.coremodule.findDependency
+import com.example.productslistapi.ProductsListFragmentLauncher
+import com.example.registration_login_api.login.LoginFragmentLauncher
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -19,23 +18,30 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var viewmodelFactory: ViewModelFactory
 
+    @Inject
+    lateinit var loginFragmentLauncher: LoginFragmentLauncher
+
+    @Inject
+    lateinit var productsListFragmentLauncher: ProductsListFragmentLauncher
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        appComponent.inject(this)
+        DaggerMainActivityComponent.factory().create(
+            context = applicationContext,
+            productsList = applicationContext.findDependency(),
+            login = applicationContext.findDependency(),
+            profile = applicationContext.findDependency()
+        ).inject(this)
         viewModel.getProfile()
         viewModel.mainEventFlow.onEach {
             when (it) {
                 is OpenAppOneTimeEvent.NavigateToLoginFragment -> {
-                    supportFragmentManager.beginTransaction()
-                        .add(R.id.main, LoginFragment())
-                        .commit()
+                    loginFragmentLauncher.addLoginFragment(supportFragmentManager)
                 }
 
                 is OpenAppOneTimeEvent.NaviGateToProductListFragment -> {
-                    supportFragmentManager.beginTransaction()
-                        .add(R.id.main, ProductsListFragment())
-                        .commit()
+                    productsListFragmentLauncher.addProductsListFragment(supportFragmentManager)
                 }
             }
         }.launchIn(lifecycleScope)

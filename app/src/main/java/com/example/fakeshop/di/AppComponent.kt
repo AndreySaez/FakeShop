@@ -1,9 +1,8 @@
 package com.example.fakeshop.di
 
 import android.content.Context
+import com.example.applauncher.MainActivityModule
 import com.example.coremodule.RetrofitModule
-import com.example.fakeshop.main_activity.MainActivity
-import com.example.fakeshop.main_activity.MainActivityModule
 import com.example.productdetails.ProductDetailsModule
 import com.example.productslist.data.category.CategoriesDataModule
 import com.example.productslist.data.list.ProductListDataModule
@@ -35,8 +34,6 @@ import dagger.Component
 )
 
 interface AppComponent : AppComponentInterface {
-    fun inject(mainActivity: MainActivity)
-
     @Component.Factory
     interface Factory {
         fun create(@BindsInstance context: Context): AppComponent

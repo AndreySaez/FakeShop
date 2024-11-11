@@ -3,7 +3,9 @@ package com.example.fakeshop.di
 import com.example.productslistapi.ProductsListDependenciesProvider
 import com.example.prosuctdetailsapi.ProductDetailsDependenciesProvider
 import com.example.registration_login_api.login.LoginDependenciesProvider
+import com.example.registration_login_api.profile.ProfileDependenciesProvider
 import com.example.registration_login_api.registration.RegistrationDependenciesProvider
 
 interface AppComponentInterface : ProductDetailsDependenciesProvider,
-    ProductsListDependenciesProvider, RegistrationDependenciesProvider, LoginDependenciesProvider
+    ProductsListDependenciesProvider, RegistrationDependenciesProvider, LoginDependenciesProvider,
+    ProfileDependenciesProvider

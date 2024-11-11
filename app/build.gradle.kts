@@ -66,4 +66,5 @@ dependencies {
     implementation(project(":productDetailsApi"))
     implementation(project(":productsListApi"))
     implementation(project(":registration_login_api"))
+    implementation(project(":appLauncher"))
 }

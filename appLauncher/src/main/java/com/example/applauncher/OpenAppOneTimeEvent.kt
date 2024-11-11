@@ -1,4 +1,4 @@
-package com.example.fakeshop.main_activity
+package com.example.applauncher
 
 sealed interface OpenAppOneTimeEvent {
     data object NavigateToLoginFragment: OpenAppOneTimeEvent
