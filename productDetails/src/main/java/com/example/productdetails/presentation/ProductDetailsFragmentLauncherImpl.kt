@@ -9,7 +9,7 @@ import javax.inject.Inject
 class ProductDetailsFragmentLauncherImpl @Inject constructor() : ProductDetailsFragmentLauncher {
 
     private val PRODUCT_KEY = "Product"
-    override fun launchFragment(product: Product): Fragment {
+    override fun launchProductDetailsFragment(product: Product): Fragment {
         return ProductDetailsFragment().apply {
             arguments = bundleOf(PRODUCT_KEY to product)
         }

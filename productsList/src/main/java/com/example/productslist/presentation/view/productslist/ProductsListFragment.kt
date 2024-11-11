@@ -174,7 +174,7 @@ class ProductsListFragment : Fragment() {
     }
 
     private fun navigationOnProduct(product: Product) {
-        val productDetails = productDetailsLauncher.launchFragment(product)
+        val productDetails = productDetailsLauncher.launchProductDetailsFragment(product)
         parentFragmentManager.beginTransaction().addToBackStack(null)
             .add(R.id.main, productDetails)
             .commit()
