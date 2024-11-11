@@ -1,4 +1,4 @@
-package com.example.fakeshop.main_activity
+package com.example.applauncher
 
 import androidx.lifecycle.ViewModel
 import com.example.coremodule.ViewModelKey

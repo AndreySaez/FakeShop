@@ -2,7 +2,7 @@ package com.example.registartion_login.login.data.profile
 
 import com.example.coremodule.ApiInterface
 import com.example.registartion_login.login.domain.profile.ProfileRepository
-import com.example.registartion_login.login.domain.profile.ProfileResult
+import com.example.registration_login_api.profile.ProfileResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
