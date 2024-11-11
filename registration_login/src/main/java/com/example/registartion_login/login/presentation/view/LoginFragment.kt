@@ -69,7 +69,7 @@ class LoginFragment : Fragment() {
                 ).show()
 
                 LoginOneTimeEvent.NavigateToProductList -> {
-                    productsListFragmentLauncher.openProductsList(parentFragmentManager)
+                    productsListFragmentLauncher.replaceProductsListFragment(parentFragmentManager)
                 }
 
                 LoginOneTimeEvent.GoToRegistration -> {

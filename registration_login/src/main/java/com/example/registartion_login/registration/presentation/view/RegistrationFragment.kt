@@ -12,11 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.coremodule.ViewModelFactory
-import com.example.registartion_login.R
-import com.example.registartion_login.login.presentation.view.LoginFragment
+import com.example.coremodule.findDependency
 import com.example.registartion_login.registration.DaggerRegistrationComponent
 import com.example.registartion_login.registration.presentation.viewmodel.RegistrationOneTimeEvent
 import com.example.registartion_login.registration.presentation.viewmodel.RegistrationViewModel
+import com.example.registration_login_api.login.LoginFragmentLauncher
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -26,8 +26,15 @@ class RegistrationFragment : Fragment() {
 
     @Inject
     lateinit var viewmodelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var loginFragmentLauncher: LoginFragmentLauncher
     override fun onAttach(context: Context) {
-        DaggerRegistrationComponent.factory().create(context = context).inject(this)
+        DaggerRegistrationComponent.factory()
+            .create(
+                context = context,
+                loginDependency = context.findDependency()
+            ).inject(this)
         super.onAttach(context)
     }
 
@@ -57,9 +64,9 @@ class RegistrationFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                is RegistrationOneTimeEvent.NavigateToLogin -> parentFragmentManager.beginTransaction()
-                    .replace(R.id.main, LoginFragment())
-                    .commit()
+                is RegistrationOneTimeEvent.NavigateToLogin ->
+                    loginFragmentLauncher
+                        .replaceLoginFragment(parentFragmentManager)
             }
         }.launchIn(lifecycleScope)
     }
