@@ -59,12 +59,21 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     //Modules
+    //Core
     implementation(project(":core"))
-    implementation(project(":productDetails"))
-    implementation(project(":registration_login"))
-    implementation(project(":productsList"))
-    implementation(project(":productDetailsApi"))
-    implementation(project(":productsListApi"))
-    implementation(project(":registration_login_api"))
-    implementation(project(":appLauncher"))
+
+    //appLauncher
+    implementation(project(":app-launcher"))
+
+    //registration and login
+    implementation(project(":registration-login:impl"))
+    implementation(project(":registration-login:api"))
+
+    //productsList
+    implementation(project(":products-list:impl"))
+    implementation(project(":products-list:api"))
+
+    //productDetails
+    implementation(project(":product-details:api"))
+    implementation(project(":product-details:impl"))
 }
