@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.registration_login_api"
+    namespace = "com.example.api"
 }
 
 dependencies {

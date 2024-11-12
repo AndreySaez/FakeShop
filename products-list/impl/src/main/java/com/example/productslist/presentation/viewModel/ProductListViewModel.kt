@@ -1,28 +1,20 @@
 package com.example.productslist.presentation.viewModel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.coremodule.BaseViewModel
 import com.example.coremodule.productlist.Category
 import com.example.coremodule.productlist.Product
 import com.example.productslist.domain.list.ProductListUseCase
 import com.example.productslist.presentation.view.filters.InputPriceSort
 import com.example.productslist.presentation.view.filters.PriceSortMapper
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ProductListViewModel @Inject constructor(
     private val getProductsUseCase: ProductListUseCase,
     private val mapper: PriceSortMapper
-) : BaseViewModel<ProductAction, ProductsListState>(ProductsListState.IsEmpty) {
-    val oneTimeEvents get() = _oneTimeEvents.asSharedFlow()
-    private val _oneTimeEvents = MutableSharedFlow<ProductsListEvents>()
-
+) : BaseViewModel<ProductAction, ProductsListState, ProductsListEvents>(ProductsListState.IsEmpty) {
 
     private var hasMoreItems = true
     private var loadingJob: Job? = null
@@ -119,7 +111,7 @@ class ProductListViewModel @Inject constructor(
     }
 
     private fun openFilters() = viewModelScope.launch {
-        _oneTimeEvents.emit(ProductsListEvents.OpenFilters(currentCategory, currentSort))
+        setEvent(ProductsListEvents.OpenFilters(currentCategory, currentSort))
     }
 
     private fun changeCategory(category: Category?, sort: InputPriceSort?) {
@@ -134,18 +126,6 @@ class ProductListViewModel @Inject constructor(
     companion object {
         const val PAGE_SIZE = 20
         const val INITIAL_PAGE = 0
-    }
-}
-
-abstract class BaseViewModel<Action, State>(initialState: State) : ViewModel() {
-
-    val state: StateFlow<State> get() = _state.asStateFlow()
-    private val _state = MutableStateFlow(initialState)
-
-    abstract fun onAction(action: Action)
-
-    protected fun setState(state: State) {
-        _state.value = state
     }
 }
 

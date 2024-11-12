@@ -12,7 +12,7 @@ dependencies {
 
     //Modules
     implementation(project(":core"))
-    implementation(project(":productDetailsApi"))
+    implementation(project(":product-details:api"))
 
     //coil
     implementation(libs.coil)

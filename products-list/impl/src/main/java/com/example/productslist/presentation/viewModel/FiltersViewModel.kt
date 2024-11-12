@@ -1,39 +1,29 @@
 package com.example.productslist.presentation.viewModel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.coremodule.BaseViewModel
 import com.example.coremodule.productlist.Category
 import com.example.productslist.R
 import com.example.productslist.domain.category.CategoryRepository
 import com.example.productslist.domain.price.PriceSort
 import com.example.productslist.presentation.view.filters.InputPriceSort
 import com.example.productslist.presentation.view.filters.PriceSortMapper
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FiltersViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository,
     private val mapper: PriceSortMapper
-) : ViewModel() {
-    val state: StateFlow<FiltersState> get() = _state.asStateFlow()
-    private val _state = MutableStateFlow(FiltersState.INITIAL)
-
-    val oneTimeEvents get() = _oneTimeEvents.asSharedFlow()
-    private val _oneTimeEvents = MutableSharedFlow<FiltersOneTimeEvent>()
-
+) : BaseViewModel<FiltersAction, FiltersState, FiltersOneTimeEvent>(FiltersState.INITIAL) {
     init {
         viewModelScope.launch {
             val categories = categoryRepository.getCategories()
-            _state.value = _state.value.copy(categories = categories)
+            val newState = state.value.copy(categories = categories)
+            setState(newState)
         }
     }
 
-    fun onAction(action: FiltersAction) = when (action) {
+    override fun onAction(action: FiltersAction) = when (action) {
         is FiltersAction.OnCategoryClicked -> changeCategory(action.category)
         is FiltersAction.SetInitialFilters -> setInitialFilters(action.sort, action.category)
         is FiltersAction.OnMaximumPriceChanged -> changeMaximumPriceSort(action.price)
@@ -43,36 +33,40 @@ class FiltersViewModel @Inject constructor(
 
     private fun setInitialFilters(sort: PriceSort?, category: Category?) {
         val inputSort = mapper.priceToInput(sort)
-        _state.value = state.value.copy(
+        val newState = state.value.copy(
             selectedCategory = category,
             priceSort = inputSort
         )
+        setState(newState)
     }
 
     private fun changeMaximumPriceSort(priceValue: Int?) {
         val currentState = state.value
         val newPriceSort = currentState.priceSort.copy(priceMax = priceValue)
-        _state.value = _state.value.copy(priceSort = newPriceSort)
+        val newState = state.value.copy(priceSort = newPriceSort)
+        setState(newState)
     }
 
     private fun changeMinimalPriceSort(priceValue: Int?) {
         val currentState = state.value
         val newPriceSort = currentState.priceSort.copy(priceMin = priceValue)
-        _state.value = _state.value.copy(priceSort = newPriceSort)
+        val newState = state.value.copy(priceSort = newPriceSort)
+        setState(newState)
     }
 
     private fun changeCategory(category: Category) {
         val currentState = state.value
-        _state.value = currentState.copy(
+        val newState = currentState.copy(
             selectedCategory = if (category == currentState.selectedCategory) null else category
         )
+        setState(newState)
     }
 
     private fun submit() {
         viewModelScope.launch {
             val currentState = state.value
             if (handleError(currentState)) {
-                _oneTimeEvents.emit(
+                setEvent(
                     FiltersOneTimeEvent.SubmitResults(
                         currentState.selectedCategory, currentState.priceSort
                     )
@@ -91,12 +85,12 @@ class FiltersViewModel @Inject constructor(
                 if (currentMinPrice > currentMaxPrice) throw IllegalArgumentException()
             }
         } catch (e: IllegalArgumentException) {
-            _oneTimeEvents.emit(
+            setEvent(
                 FiltersOneTimeEvent.MakePriceSortErrorToast(R.string.max_price_must_be_higher_then_min_price_toast)
             )
             return false
         } catch (e: IllegalStateException) {
-            _oneTimeEvents.emit(
+            setEvent(
                 FiltersOneTimeEvent.MakePriceSortErrorToast(R.string.both_prices_must_be_not_empty)
             )
             return false

@@ -22,8 +22,8 @@ dependencies {
 
     //Modules
     implementation(project(":core"))
-    implementation(project(":productsListApi"))
-    implementation(project(":registration_login_api"))
+    implementation(project(":products-list:api"))
+    implementation(project(":registration-login:api"))
 
     //coroutines
     implementation(libs.kotlinx.coroutines.android)

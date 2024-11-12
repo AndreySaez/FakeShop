@@ -22,8 +22,8 @@ dependencies {
 
     //Modules
     implementation(project(":core"))
-    implementation(project(":productDetailsApi"))
-    implementation(project(":productsListApi"))
+    implementation(project(":product-details:api"))
+    implementation(project(":products-list:api"))
 
 
     //coil
