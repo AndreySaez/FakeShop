@@ -1,27 +1,17 @@
 package com.example.registartion_login.registration.presentation.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.coremodule.BaseViewModel
 import com.example.registartion_login.R
 import com.example.registartion_login.registration.domain.RegisterForm
 import com.example.registartion_login.registration.domain.RegisterUseCase
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class RegistrationViewModel @Inject constructor(
     private val registerUseCase: RegisterUseCase,
-) : ViewModel() {
-    val state get() = _state.asStateFlow()
-    private val _state = MutableStateFlow(RegisterState.INITIAL)
-
-    val eventFlow get() = _eventFlow.asSharedFlow()
-    private val _eventFlow = MutableSharedFlow<RegistrationOneTimeEvent>()
-
-    fun onAction(action: RegistrationAction) {
+) : BaseViewModel<RegistrationAction, RegisterState, RegistrationOneTimeEvent>(RegisterState.INITIAL) {
+    override fun onAction(action: RegistrationAction) {
         when (action) {
             is RegistrationAction.EnterClick -> submitRegisterForm()
             is RegistrationAction.OnNameChanged -> changeName(action.nameValue)
@@ -33,27 +23,27 @@ class RegistrationViewModel @Inject constructor(
 
     private fun alreadyHaveAccount() {
         viewModelScope.launch {
-            _eventFlow.emit(RegistrationOneTimeEvent.NavigateToLogin)
+            setEvent(RegistrationOneTimeEvent.NavigateToLogin)
         }
     }
 
     private fun changeName(nameValue: String) {
         val currentState = state.value
         val newForm = currentState.registerForm.copy(name = nameValue)
-        _state.value = currentState.copy(registerForm = newForm)
+        setState(currentState.copy(registerForm = newForm))
     }
 
     private fun changeEmail(emailValue: String) {
         val currentState = state.value
         val newForm = currentState.registerForm.copy(email = emailValue)
-        _state.value = currentState.copy(registerForm = newForm)
+        setState(currentState.copy(registerForm = newForm))
         validateForm()
     }
 
     private fun changePassword(passwordValue: String) {
         val currentState = state.value
         val newForm = currentState.registerForm.copy(password = passwordValue)
-        _state.value = currentState.copy(registerForm = newForm)
+        setState(currentState.copy(registerForm = newForm))
         validateForm()
     }
 
@@ -69,20 +59,20 @@ class RegistrationViewModel @Inject constructor(
                         .matches(android.util.Patterns.EMAIL_ADDRESS.toRegex())
                     )
         )
-        _state.value = currentState
+        setState(currentState)
     }
 
     private fun submitRegisterForm() {
         viewModelScope.launch {
             val currentState = state.value
             try {
-                _state.value = currentState.copy(isLoading = true)
+                setState(currentState.copy(isLoading = true))
                 registerUseCase.register(state.value.registerForm)
-                _eventFlow.emit(RegistrationOneTimeEvent.NavigateToLogin)
+                setEvent(RegistrationOneTimeEvent.NavigateToLogin)
             } catch (e: Exception) {
-                _eventFlow.emit(RegistrationOneTimeEvent.MakeErrorToast(R.string.something_wrong))
+                setEvent(RegistrationOneTimeEvent.MakeErrorToast(R.string.something_wrong))
             } finally {
-                _state.value = currentState.copy(isLoading = false)
+                setState(currentState.copy(isLoading = false))
             }
         }
     }
