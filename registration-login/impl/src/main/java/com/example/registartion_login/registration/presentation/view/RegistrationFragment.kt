@@ -56,7 +56,7 @@ class RegistrationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val composeView = view as? ComposeView ?: return
         composeView.setContent { Registration(registrationViewModel) }
-        registrationViewModel.eventFlow.onEach {
+        registrationViewModel.oneTimeEvents.onEach {
             when (it) {
                 is RegistrationOneTimeEvent.MakeErrorToast -> Toast.makeText(
                     context,

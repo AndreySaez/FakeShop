@@ -60,7 +60,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val composeView = view as? ComposeView ?: return
         composeView.setContent { Login(loginViewModel) }
-        loginViewModel.eventFlow.onEach {
+        loginViewModel.oneTimeEvents.onEach {
             when (it) {
                 is LoginOneTimeEvent.MakeErrorToast -> Toast.makeText(
                     context,
