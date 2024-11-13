@@ -1,18 +1,12 @@
 package com.example.coremodule
 
-import com.example.coremodule.login.LoginResponse
-import com.example.coremodule.updateTokens.UpdateTokensRequest
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.POST
 
 
 interface ApiInterface {
-    @POST("auth/refresh-token")
-    suspend fun updateTokens(@Body refreshTokensRequest: UpdateTokensRequest): LoginResponse
 
 
     companion object {

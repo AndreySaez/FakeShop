@@ -6,6 +6,7 @@ import com.example.registartion_login.login.data.login.LoginApi
 import com.example.registartion_login.login.data.login.LoginRepositoryImpl
 import com.example.registartion_login.login.data.profile.ProfileApi
 import com.example.registartion_login.login.data.profile.ProfileRepositoryImpl
+import com.example.registartion_login.login.data.updateTokens.UpdateTokensApi
 import com.example.registartion_login.login.data.updateTokens.UpdateTokensRepositoryImpl
 import com.example.registartion_login.login.data.updateTokens.workManager.WorkerInitializer
 import com.example.registartion_login.login.domain.SessionStorage
@@ -39,6 +40,11 @@ class LoginDataModule {
     @Provides
     fun profileApi(retrofit: Retrofit): ProfileApi {
         return retrofit.create(ProfileApi::class.java)
+    }
+
+    @Provides
+    fun updateTokensApi(retrofit: Retrofit): UpdateTokensApi {
+        return retrofit.create(UpdateTokensApi::class.java)
     }
 
 
