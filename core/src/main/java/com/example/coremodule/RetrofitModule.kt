@@ -2,9 +2,27 @@ package com.example.coremodule
 
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 class RetrofitModule {
     @Provides
-    fun apiInterface() = ApiInterface.create()
+    fun createRetrofit(): Retrofit {
+        val client = OkHttpClient.Builder()
+            .addInterceptor(logging)
+            .build()
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .baseUrl(BASE_URL)
+            .build()
+    }
+
+    companion object {
+        private const val BASE_URL = "https://api.escuelajs.co/api/v1/"
+        private val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    }
 }

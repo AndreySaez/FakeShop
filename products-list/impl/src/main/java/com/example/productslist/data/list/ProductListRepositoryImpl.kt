@@ -1,6 +1,5 @@
 package com.example.productslist.data.list
 
-import com.example.coremodule.ApiInterface
 import com.example.coremodule.productlist.Category
 import com.example.coremodule.productlist.Product
 import com.example.productslist.domain.list.ProductListRepository
@@ -10,7 +9,8 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ProductListRepositoryImpl @Inject constructor(
-    private val apiInterface: ApiInterface,
+//    private val apiInterface: ApiInterface,
+    private val productsListApi: ProductsListApi,
     private val mapper: ProductMapper,
 ) : ProductListRepository {
     override suspend fun getProductList(
@@ -19,7 +19,7 @@ class ProductListRepositoryImpl @Inject constructor(
         priceSort: PriceSort?,
         category: Category?
     ): List<Product> = withContext(Dispatchers.IO) {
-        apiInterface.getProductList(
+        productsListApi.getProductList(
             limit = pageSize,
             page = nextPage,
             priceMin = priceSort?.priceMin,
