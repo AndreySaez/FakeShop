@@ -2,8 +2,6 @@ package com.example.coremodule
 
 import com.example.coremodule.login.LoginRequest
 import com.example.coremodule.login.LoginResponse
-import com.example.coremodule.productlist.CategoryResponse
-import com.example.coremodule.productlist.ProductDTO
 import com.example.coremodule.profile.ProfileResponse
 import com.example.coremodule.registration.RegistrationRequest
 import com.example.coremodule.registration.RegistrationState
@@ -16,24 +14,9 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
-import retrofit2.http.Query
 
 
 interface ApiInterface {
-    @GET("products")
-    suspend fun getProductList(
-        @Query("price_min") priceMin: Int? = null,
-        @Query("price_max") priceMax: Int? = null,
-        @Query("limit") limit: Int = 20,
-        @Query("offset") page: Int = 0,
-        @Query("categoryId") categoryId: Int? = null
-    ): List<ProductDTO>
-
-    @GET("categories")
-    suspend fun getCategories(
-        @Query("id") id: Int? = null
-    ): List<CategoryResponse>
-
     @POST("auth/login")
     suspend fun logIn(@Body logInRequest: LoginRequest): LoginResponse
 

@@ -9,7 +9,6 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ProductListRepositoryImpl @Inject constructor(
-//    private val apiInterface: ApiInterface,
     private val productsListApi: ProductsListApi,
     private val mapper: ProductMapper,
 ) : ProductListRepository {
