@@ -3,8 +3,6 @@ package com.example.coremodule
 import com.example.coremodule.login.LoginRequest
 import com.example.coremodule.login.LoginResponse
 import com.example.coremodule.profile.ProfileResponse
-import com.example.coremodule.registration.RegistrationRequest
-import com.example.coremodule.registration.RegistrationState
 import com.example.coremodule.updateTokens.UpdateTokensRequest
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -22,9 +20,6 @@ interface ApiInterface {
 
     @GET("auth/profile")
     suspend fun getProfile(@Header("Authorization") token: String): ProfileResponse
-
-    @POST("users")
-    suspend fun registration(@Body createAccountRequest: RegistrationRequest): RegistrationState
 
     @POST("auth/refresh-token")
     suspend fun updateTokens(@Body refreshTokensRequest: UpdateTokensRequest): LoginResponse

@@ -1,6 +1,5 @@
 package com.example.registartion_login.registration.data
 
-import com.example.coremodule.ApiInterface
 import com.example.coremodule.registration.RegistrationRequest
 import com.example.registartion_login.registration.domain.RegisterForm
 import com.example.registartion_login.registration.domain.RegistrationRepository
@@ -9,10 +8,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RegistrationRepositoryImpl @Inject constructor(
-    private val apiInterface: ApiInterface,
+    private val registrationApi: RegistrationApi
 ) : RegistrationRepository {
     override suspend fun registration(registerForm: RegisterForm) = withContext(Dispatchers.IO) {
-        apiInterface.registration(
+        registrationApi.registration(
             RegistrationRequest(
                 name = registerForm.name,
                 email = registerForm.email,
