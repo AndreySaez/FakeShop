@@ -58,6 +58,9 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
+    //network
+    implementation(libs.retrofit)
+
     //Modules
     //Core
     implementation(project(":core"))

@@ -25,6 +25,9 @@ dependencies {
     implementation(project(":product-details:api"))
     implementation(project(":products-list:api"))
 
+    //network
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     //coil
     implementation(libs.coil)
