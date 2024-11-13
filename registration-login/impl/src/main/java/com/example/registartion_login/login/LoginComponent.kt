@@ -1,7 +1,6 @@
 package com.example.registartion_login.login
 
 import android.content.Context
-import com.example.coremodule.ApiInterfaceModule
 import com.example.coremodule.RetrofitModule
 import com.example.productslistapi.ProductsListDependenciesProvider
 import com.example.registartion_login.login.data.LoginDataModule
@@ -17,7 +16,6 @@ import dagger.Component
         RetrofitModule::class,
         LoginPresentationModule::class,
         LoginDataModule::class,
-        ApiInterfaceModule::class
     ],
     dependencies = [ProductsListDependenciesProvider::class, RegistrationDependenciesProvider::class]
 )
