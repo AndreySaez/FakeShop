@@ -2,6 +2,7 @@ package com.example.registartion_login.login.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.registartion_login.login.data.login.LoginApi
 import com.example.registartion_login.login.data.login.LoginRepositoryImpl
 import com.example.registartion_login.login.data.profile.ProfileRepositoryImpl
 import com.example.registartion_login.login.data.updateTokens.UpdateTokensRepositoryImpl
@@ -16,6 +17,7 @@ import com.example.registration_login_api.profile.ProfileUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import retrofit2.Retrofit
 
 @Module(
     includes = [
@@ -27,6 +29,11 @@ class LoginDataModule {
     @Provides
     fun sharedPreference(context: Context): SharedPreferences =
         context.getSharedPreferences(SessionStorageImpl.PREF_KEY, Context.MODE_PRIVATE)
+
+    @Provides
+    fun loginApi(retrofit: Retrofit): LoginApi {
+        return retrofit.create(LoginApi::class.java)
+    }
 
 
     @Module

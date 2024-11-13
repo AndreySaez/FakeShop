@@ -1,6 +1,5 @@
 package com.example.coremodule
 
-import com.example.coremodule.login.LoginRequest
 import com.example.coremodule.login.LoginResponse
 import com.example.coremodule.profile.ProfileResponse
 import com.example.coremodule.updateTokens.UpdateTokensRequest
@@ -15,9 +14,6 @@ import retrofit2.http.POST
 
 
 interface ApiInterface {
-    @POST("auth/login")
-    suspend fun logIn(@Body logInRequest: LoginRequest): LoginResponse
-
     @GET("auth/profile")
     suspend fun getProfile(@Header("Authorization") token: String): ProfileResponse
 
