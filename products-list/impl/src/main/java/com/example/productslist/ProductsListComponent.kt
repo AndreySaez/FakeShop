@@ -1,7 +1,6 @@
 package com.example.productslist
 
 import android.content.Context
-import com.example.coremodule.ApiInterfaceModule
 import com.example.coremodule.RetrofitModule
 import com.example.productslist.data.category.CategoriesDataModule
 import com.example.productslist.data.list.ProductListDataModule
@@ -15,7 +14,6 @@ import dagger.Component
 
 @Component(
     modules = [
-        ApiInterfaceModule::class,
         ProductListDataModule::class,
         ProductListPresentationModule::class,
         CategoriesDataModule::class,

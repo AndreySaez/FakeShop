@@ -26,6 +26,10 @@ dependencies {
     implementation(project(":products-list:api"))
     implementation(project(":registration-login:api"))
 
+    //network
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
     //viewModel
     implementation(libs.androidx.fragment.ktx.v180)
     implementation(libs.androidx.fragment.ktx)
