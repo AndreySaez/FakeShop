@@ -2,7 +2,7 @@ package com.example.fakeshop.di
 
 import android.content.Context
 import com.example.applauncher.MainActivityModule
-import com.example.coremodule.ApiInterfaceModule
+import com.example.coremodule.RetrofitModule
 import com.example.productdetails.ProductDetailsModule
 import com.example.productslist.data.category.CategoriesDataModule
 import com.example.productslist.data.list.ProductListDataModule
@@ -23,13 +23,12 @@ import dagger.Component
         CategoriesDataModule::class,
         FiltersPresentationModule::class,
         MainActivityModule::class,
-        ApiInterfaceModule::class,
         LoginDataModule::class,
         ProductDetailsModule::class,
         RegistrationPresentationModule::class,
         RegistrationDataModule::class,
-        LoginDataModule::class,
-        LoginPresentationModule::class
+        LoginPresentationModule::class,
+        RetrofitModule::class
     ]
 )
 
