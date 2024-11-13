@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.registartion_login.login.data.login.LoginApi
 import com.example.registartion_login.login.data.login.LoginRepositoryImpl
+import com.example.registartion_login.login.data.profile.ProfileApi
 import com.example.registartion_login.login.data.profile.ProfileRepositoryImpl
 import com.example.registartion_login.login.data.updateTokens.UpdateTokensRepositoryImpl
 import com.example.registartion_login.login.data.updateTokens.workManager.WorkerInitializer
@@ -33,6 +34,11 @@ class LoginDataModule {
     @Provides
     fun loginApi(retrofit: Retrofit): LoginApi {
         return retrofit.create(LoginApi::class.java)
+    }
+
+    @Provides
+    fun profileApi(retrofit: Retrofit): ProfileApi {
+        return retrofit.create(ProfileApi::class.java)
     }
 
 

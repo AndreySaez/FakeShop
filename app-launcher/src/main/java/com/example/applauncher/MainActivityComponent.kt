@@ -1,7 +1,6 @@
 package com.example.applauncher
 
 import android.content.Context
-import com.example.coremodule.ApiInterfaceModule
 import com.example.productslistapi.ProductsListDependenciesProvider
 import com.example.registration_login_api.login.LoginDependenciesProvider
 import com.example.registration_login_api.profile.ProfileDependenciesProvider
@@ -10,7 +9,6 @@ import dagger.Component
 
 @Component(
     modules = [
-        ApiInterfaceModule::class,
         MainActivityModule::class,
     ], dependencies = [
         ProductsListDependenciesProvider::class,
