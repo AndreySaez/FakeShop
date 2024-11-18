@@ -6,11 +6,13 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 class RetrofitModule {
     @Provides
-    fun createRetrofit(): Retrofit {
+    @Singleton
+    fun provideRetrofit(): Retrofit {
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)
             .build()

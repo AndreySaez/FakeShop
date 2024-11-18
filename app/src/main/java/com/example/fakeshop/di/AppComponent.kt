@@ -14,6 +14,7 @@ import com.example.registartion_login.registration.data.RegistrationDataModule
 import com.example.registartion_login.registration.presentation.RegistrationPresentationModule
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Singleton
 
 
 @Component(
@@ -31,6 +32,7 @@ import dagger.Component
         RetrofitModule::class
     ]
 )
+@Singleton
 
 interface AppComponent : AppComponentInterface {
     @Component.Factory

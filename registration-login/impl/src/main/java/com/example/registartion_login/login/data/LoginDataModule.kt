@@ -20,6 +20,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
+import javax.inject.Singleton
 
 @Module(
     includes = [
@@ -33,16 +34,19 @@ class LoginDataModule {
         context.getSharedPreferences(SessionStorageImpl.PREF_KEY, Context.MODE_PRIVATE)
 
     @Provides
+    @Singleton
     fun loginApi(retrofit: Retrofit): LoginApi {
         return retrofit.create(LoginApi::class.java)
     }
 
     @Provides
+    @Singleton
     fun profileApi(retrofit: Retrofit): ProfileApi {
         return retrofit.create(ProfileApi::class.java)
     }
 
     @Provides
+    @Singleton
     fun updateTokensApi(retrofit: Retrofit): UpdateTokensApi {
         return retrofit.create(UpdateTokensApi::class.java)
     }
