@@ -10,6 +10,7 @@ import com.example.registartion_login.login.presentation.view.LoginFragment
 import com.example.registration_login_api.registration.RegistrationDependenciesProvider
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Singleton
 
 @Component(
     modules = [
@@ -19,6 +20,7 @@ import dagger.Component
     ],
     dependencies = [ProductsListDependenciesProvider::class, RegistrationDependenciesProvider::class]
 )
+@Singleton
 interface LoginComponent {
     fun inject(fragment: LoginFragment)
     fun inject(worker: UpdateTokensWorkerImpl)

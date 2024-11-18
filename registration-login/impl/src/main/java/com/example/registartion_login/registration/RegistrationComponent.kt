@@ -8,6 +8,7 @@ import com.example.registartion_login.registration.presentation.view.Registratio
 import com.example.registration_login_api.login.LoginDependenciesProvider
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Singleton
 
 
 @Component(
@@ -17,6 +18,7 @@ import dagger.Component
         RetrofitModule::class
     ], dependencies = [LoginDependenciesProvider::class]
 )
+@Singleton
 interface RegistrationComponent {
     @Component.Factory
     interface Factory {

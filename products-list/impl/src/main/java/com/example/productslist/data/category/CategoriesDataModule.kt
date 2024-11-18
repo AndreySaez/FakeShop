@@ -5,10 +5,12 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
+import javax.inject.Singleton
 
 @Module(includes = [CategoriesDataModule.Declarations::class])
 class CategoriesDataModule {
     @Provides
+    @Singleton
     fun categoriesApi(retrofit: Retrofit): CategoriesApi {
         return retrofit.create(CategoriesApi::class.java)
     }

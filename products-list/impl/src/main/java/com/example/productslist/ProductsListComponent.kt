@@ -11,6 +11,7 @@ import com.example.productslist.presentation.viewModel.FiltersPresentationModule
 import com.example.prosuctdetailsapi.ProductDetailsDependenciesProvider
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Singleton
 
 @Component(
     modules = [
@@ -21,6 +22,7 @@ import dagger.Component
         RetrofitModule::class
     ], dependencies = [ProductDetailsDependenciesProvider::class]
 )
+@Singleton
 interface ProductsListComponent {
     @Component.Factory
     interface Factory {
